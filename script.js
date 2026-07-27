@@ -1,0 +1,748 @@
+
+const { useEffect, useRef, useState, useLayoutEffect } = React;
+
+gsap.registerPlugin(ScrollTrigger);
+
+const SCENES = [
+  { id:"hero", label:"Scene 01 — Open" },
+  { id:"manifesto", label:"Scene 02 — Manifesto" },
+  { id:"about", label:"Scene 03 — Self" },
+  { id:"work", label:"Scene 04 — Work" },
+  { id:"skills", label:"Scene 05 — Skills" },
+  { id:"timeline", label:"Scene 06 — Path" },
+  { id:"contact", label:"Scene 07 — Close" },
+];
+
+const CASES = [
+  {
+    idx:"01",
+    cls:"c1",
+    tag:"Automation · n8n · Google Sheets",
+    tagCls:"orange",
+
+    title:["AI Paint","Assistant"],
+    badge:"Case 01",
+
+    body:"A workflow that turns a client's raw paint inventory into a live, self-updating advisor — n8n orchestrates the logic, Google Sheets holds the source of truth, and the front end never shows a stale answer.",
+
+    tools:[
+      "n8n",
+      "Google Sheets API",
+      "Automation Logic",
+      "Frontend UI"
+    ],
+
+    images:[
+      "./assets/mousaa.png",
+      "./assets/mousaa2.png",
+      "./assets/mousaa3.png"
+    ],
+
+    frameLabel:"Workflow preview — 01 / AI Paint Assistant",
+  },
+
+
+ {
+ idx:"02",
+ cls:"c2",
+ tag:"Web Design · Architecture & Interiors",
+ tagCls:"violet",
+
+ title:["Luxury","Interior Site"],
+ badge:"Case 02",
+
+ body:"A high-end showcase built for an interior design studio with cinematic visuals and immersive storytelling.",
+
+ tools:[
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "GSAP",
+  "Luxury UI"
+ ],
+
+ images:[
+ "./assets/mousa1.png",
+ "./assets/mousaa2.png",
+ "./assets/mousaa3.png",
+ "./assets/mousaa4.png",
+ "./assets/mousaa5.png",
+ "./assets/mousaa6.png",
+ "./assets/mousaa7.png",
+ "./assets/mousaa8.png",
+ "./assets/mousaa9.png"
+],
+
+
+ frameLabel:"Site preview — Luxury Interior Studio"
+},
+
+
+  {
+    idx:"03",
+    cls:"c3",
+    tag:"Brand · Portfolio",
+    tagCls:"orange",
+
+    title:["This","Portfolio"],
+    badge:"Case 03",
+
+    body:"The site you're on. One continuous cinematic sequence built to hold both sides of the practice — the craft of the interface and the systems running underneath it — under a single dark, considered identity.",
+
+    tools:[
+      "React",
+      "GSAP",
+      "ScrollTrigger",
+      "Motion Direction"
+    ],
+
+    images:[
+      "./assets/omar.png"
+    ],
+
+    frameLabel:"Live — 03 / Cinematic Studio Portfolio",
+  },
+];
+
+const TIMELINE = [
+  { year:"Foundations", title:"First lines of code", body:"Started building on the web early — HTML, CSS, and JavaScript as a daily practice rather than a course to finish." },
+  { year:"Frontend Practice", title:"Freelance & client work", body:"Two years deep in production frontend work — freelance builds and client sites, developing an eye for interfaces that feel deliberate rather than default." },
+  { year:"Expansion", title:"Into AI automation", body:"Started pairing frontend craft with automation tooling — n8n workflows and connected data sources — to ship systems, not just screens." },
+  { year:"Now", title:"Bridging both disciplines", body:"Positioned at the intersection of high-end frontend design and AI automation, building a practice and a portfolio around that exact bridge." },
+];
+
+const SKILLS = [
+  { name:"HTML", tag:"Markup" },
+  { name:"CSS", tag:"Styling" },
+  { name:"JavaScript", tag:"Language" },
+  { name:"React", tag:"Framework" },
+  { name:"GSAP", tag:"Motion" },
+  { name:"AI Automation", tag:"Systems" },
+  { name:"n8n", tag:"Workflows" },
+  { name:"UI / UX Design", tag:"Craft" },
+];
+
+/* ---------------- Smooth scroll + curtain intro (top-level plumbing) ---------------- */
+function useSmoothScrollAndIntro(){
+  useLayoutEffect(()=>{
+    const isDesktop = window.matchMedia('(min-width: 861px)').matches && !('ontouchstart' in window);
+    if(isDesktop) document.body.classList.add('smooth-active');
+
+    const wrapper = document.getElementById('smooth-wrapper');
+    const content = document.getElementById('smooth-content');
+    let raf;
+
+    function setHeight(){
+      document.body.style.height = content.getBoundingClientRect().height + 'px';
+    }
+
+    if(isDesktop){
+      let current = 0, target = 0;
+      setHeight();
+
+      ScrollTrigger.scrollerProxy(document.body, {
+        scrollTop(value){
+          if(arguments.length){ current = target = value; window.scrollTo(0, value); }
+          return current;
+        },
+        getBoundingClientRect(){
+          return { top:0, left:0, width:window.innerWidth, height:window.innerHeight };
+        },
+        pinType:"transform",
+      });
+
+      function tick(){
+        target = window.scrollY;
+        current += (target - current) * 0.085;
+        if(Math.abs(target-current) < 0.05) current = target;
+        gsap.set(content, { y: -current });
+        ScrollTrigger.update();
+        raf = requestAnimationFrame(tick);
+      }
+      raf = requestAnimationFrame(tick);
+
+      const onResize = ()=>{ setHeight(); ScrollTrigger.refresh(); };
+      window.addEventListener('resize', onResize);
+
+      const t = setTimeout(()=>{ setHeight(); ScrollTrigger.refresh(); }, 400);
+
+      return ()=>{
+        cancelAnimationFrame(raf);
+        window.removeEventListener('resize', onResize);
+        clearTimeout(t);
+      };
+    } else {
+      const t = setTimeout(()=> ScrollTrigger.refresh(), 400);
+      return ()=> clearTimeout(t);
+    }
+  }, []);
+}
+
+function Curtain(){
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+  const markRef = useRef(null);
+
+  useEffect(()=>{
+    const tl = gsap.timeline({ delay:0.15 });
+    tl.to(markRef.current, { opacity:0, duration:0.4, delay:0.5 })
+      .to([leftRef.current, rightRef.current], {
+        scaleX:0, duration:1.1, ease:"power4.inOut", stagger:0
+      }, "-=0.1")
+      .set([leftRef.current, rightRef.current], { display:"none" });
+    return ()=> tl.kill();
+  }, []);
+
+  return (
+    <div className="curtain">
+      <div className="curtain-panel" ref={leftRef} style={{transformOrigin:"left"}}></div>
+      <div className="curtain-panel" ref={rightRef} style={{transformOrigin:"right"}}></div>
+      <div className="curtain-mark mono" ref={markRef}>Omar Mohamed — Loading</div>
+    </div>
+  );
+}
+
+function Grain(){ return <div className="grain"></div>; }
+
+/* ---------------- Cursor: glow + ring + dot + magnetic hookup ---------------- */
+function CustomCursor(){
+  const dotRef = useRef(null);
+  const ringRef = useRef(null);
+  const glowRef = useRef(null);
+
+  useEffect(()=>{
+    if(!window.matchMedia('(min-width: 861px)').matches) return;
+
+    const dotX = gsap.quickTo(dotRef.current, "x", { duration:0.08, ease:"power3" });
+    const dotY = gsap.quickTo(dotRef.current, "y", { duration:0.08, ease:"power3" });
+    const ringX = gsap.quickTo(ringRef.current, "x", { duration:0.45, ease:"power3" });
+    const ringY = gsap.quickTo(ringRef.current, "y", { duration:0.45, ease:"power3" });
+    const glowX = gsap.quickTo(glowRef.current, "x", { duration:0.7, ease:"power3" });
+    const glowY = gsap.quickTo(glowRef.current, "y", { duration:0.7, ease:"power3" });
+
+    const move = (e)=>{
+      dotX(e.clientX); dotY(e.clientY);
+      ringX(e.clientX); ringY(e.clientY);
+      glowX(e.clientX); glowY(e.clientY);
+    };
+    window.addEventListener('mousemove', move);
+
+    const attach = ()=>{
+      document.querySelectorAll('[data-hover]').forEach(el=>{
+        el.addEventListener('mouseenter', onEnter);
+        el.addEventListener('mouseleave', onLeave);
+      });
+    };
+    const onEnter = ()=> ringRef.current.classList.add('hover');
+    const onLeave = ()=> ringRef.current.classList.remove('hover');
+    attach();
+
+    // re-attach periodically for dynamically-revealed elements
+    const interval = setInterval(attach, 1500);
+
+    return ()=>{
+      window.removeEventListener('mousemove', move);
+      clearInterval(interval);
+    };
+  }, []);
+
+  return (
+    <React.Fragment>
+      <div className="cursor-glow" ref={glowRef}></div>
+      <div className="cursor-ring" ref={ringRef}></div>
+      <div className="cursor-dot" ref={dotRef}></div>
+    </React.Fragment>
+  );
+}
+
+/* ---------------- Magnetic wrapper ---------------- */
+function Magnetic({ children, strength = 0.4, className = "" }){
+  const ref = useRef(null);
+
+  useEffect(()=>{
+    const el = ref.current;
+    if(!el || !window.matchMedia('(min-width: 861px)').matches) return;
+
+    const moveX = gsap.quickTo(el, "x", { duration:0.5, ease:"power3" });
+    const moveY = gsap.quickTo(el, "y", { duration:0.5, ease:"power3" });
+
+    const onMove = (e)=>{
+      const rect = el.getBoundingClientRect();
+      const relX = e.clientX - (rect.left + rect.width/2);
+      const relY = e.clientY - (rect.top + rect.height/2);
+      moveX(relX * strength);
+      moveY(relY * strength);
+    };
+    const onLeave = ()=>{ moveX(0); moveY(0); };
+
+    el.addEventListener('mousemove', onMove);
+    el.addEventListener('mouseleave', onLeave);
+    return ()=>{
+      el.removeEventListener('mousemove', onMove);
+      el.removeEventListener('mouseleave', onLeave);
+    };
+  }, [strength]);
+
+  return <span className={"magnetic-wrap " + className} ref={ref} data-hover>{children}</span>;
+}
+
+function Nav(){
+  return (
+    <nav className="nav">
+      <div className="nav-mark mono">OMAR&nbsp;MOHAMED</div>
+      <div className="nav-links">
+        <Magnetic strength={0.5}><a href="#about" data-hover>About</a></Magnetic>
+        <Magnetic strength={0.5}><a href="#work" data-hover>Work</a></Magnetic>
+        <Magnetic strength={0.5}><a href="#skills" data-hover>Skills</a></Magnetic>
+        <Magnetic strength={0.5}><a href="#contact" data-hover>Contact</a></Magnetic>
+      </div>
+    </nav>
+  );
+}
+
+function Rail({ active }){
+  return (
+    <div className="rail">
+      {SCENES.map(s=>(
+        <div key={s.id} className={"rail-item" + (active===s.id ? " active" : "")}>
+          <span className="rail-label mono">{s.label}</span>
+          <span className="rail-dot"></span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ---------------- Split-char headline ---------------- */
+function SplitWord({ text, outline }){
+  return (
+    <span className={"word" + (outline ? " outline" : "")}>
+      {text.split("").map((c,i)=>(
+        <span className="char" key={i}>{c}</span>
+      ))}
+    </span>
+  );
+}
+
+function Hero(){
+  const heroRef = useRef(null);
+  const imgwrapRef = useRef(null);
+  const spotlightRef = useRef(null);
+
+  useEffect(()=>{
+    const tl = gsap.timeline({ defaults:{ ease:"power4.out" }, delay:1.35 });
+    tl.to(".hero-eyebrow", { opacity:1, y:0, duration:0.8 }, 0)
+      .to(".hero-name .char", { opacity:1, filter:"blur(0px)", y:0, duration:1.1, stagger:0.028 }, 0.15)
+      .to(".hero-role", { opacity:1, duration:0.9 }, 1.0)
+      .to(".scroll-cue", { opacity:1, duration:0.9 }, 1.2);
+
+    // scroll zoom + parallax on image
+    gsap.to(imgwrapRef.current, {
+      scale:1.18, yPercent:8, ease:"none",
+      scrollTrigger:{ trigger:heroRef.current, start:"top top", end:"bottom top", scrub:true }
+    });
+
+    // 3D cursor parallax tilt
+    const rotX = gsap.quickTo(imgwrapRef.current, "rotationX", { duration:0.6, ease:"power3" });
+    const rotY = gsap.quickTo(imgwrapRef.current, "rotationY", { duration:0.6, ease:"power3" });
+
+    const onMove = (e)=>{
+      const rect = heroRef.current.getBoundingClientRect();
+      if(e.clientY < rect.top || e.clientY > rect.bottom) return;
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+
+      rotY((px - 0.5) * 6);
+      rotX((0.5 - py) * 4);
+
+      spotlightRef.current.style.setProperty('--sx', (px*100) + '%');
+      spotlightRef.current.style.setProperty('--sy', (py*100) + '%');
+    };
+    window.addEventListener('mousemove', onMove);
+    return ()=> window.removeEventListener('mousemove', onMove);
+  }, []);
+
+  return (
+    <section className="hero" id="hero" ref={heroRef}>
+      <div className="hero-imagewrap" ref={imgwrapRef}>
+        <div className="hero-image-base"></div>
+        <div className="hero-image-bright spotlight-mask" ref={spotlightRef}></div>
+        <div className="hero-glowbeam"></div>
+        <div className="hero-scanlines"></div>
+      </div>
+      <div className="hero-vignette"></div>
+
+      <div className="hero-content">
+        <div className="hero-eyebrow mono">Frontend Developer — AI Automation</div>
+        <h1 className="hero-name display">
+          <SplitWord text="OMAR" />
+          <SplitWord text="MOHAMED" outline />
+        </h1>
+        <div className="hero-foot">
+          <p className="hero-role">I don't just write code. <b>I design digital experiences</b> — and teach systems to run them.</p>
+          <div className="scroll-cue">
+            <span className="mono">Scroll</span>
+            <div className="line"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Manifesto ---------------- */
+function Manifesto(){
+  const ref = useRef(null);
+
+  useEffect(()=>{
+    const lines = ref.current.querySelectorAll('.manifesto-line');
+    gsap.timeline({
+      scrollTrigger:{ trigger:ref.current, start:"top 70%", toggleActions:"play none none reverse" }
+    }).to(lines, { opacity: (i, el)=> el.classList.contains('accent') ? 1 : 0.18, y:0, duration:0.9, stagger:0.12, ease:"power3.out" });
+
+    gsap.set(lines, { y:26 });
+  }, []);
+
+  return (
+    <section className="manifesto" id="manifesto" ref={ref}>
+      <div className="manifesto-lines">
+        <div className="manifesto-line">Design.</div>
+        <div className="manifesto-line">Code.</div>
+        <div className="manifesto-line">Automation.</div>
+        <div className="manifesto-line accent">One vision.</div>
+      </div>
+    </section>
+  );
+}
+
+function useSceneReveal(selector, container){
+  useEffect(()=>{
+    const root = container && container.current ? container.current : document;
+    const els = root.querySelectorAll(selector);
+    els.forEach((el, i)=>{
+      gsap.to(el, {
+        opacity:1, y:0, duration:0.9, ease:"power3.out",
+        delay: (i % 4) * 0.08,
+        scrollTrigger:{ trigger:el, start:"top 85%", toggleActions:"play none none reverse" }
+      });
+    });
+  }, []);
+}
+
+/* ---------------- Animated stat ---------------- */
+function Stat({ target, suffix = "", label }){
+  const numRef = useRef(null);
+
+  useEffect(()=>{
+    const obj = { val:0 };
+    gsap.to(obj, {
+      val:target, duration:1.6, ease:"power2.out",
+      scrollTrigger:{ trigger:numRef.current, start:"top 88%", toggleActions:"play none none reverse" },
+      onUpdate:()=>{ numRef.current.textContent = Math.round(obj.val); }
+    });
+  }, [target]);
+
+  return (
+    <div>
+      <div className="metric-num"><span ref={numRef}>0</span>{suffix}</div>
+      <div className="metric-label mono">{label}</div>
+    </div>
+  );
+}
+
+function About(){
+  const ref = useRef(null);
+  useSceneReveal(".reveal", ref);
+  return (
+    <section className="about" id="about" ref={ref}>
+      <div className="about-grid">
+        <div>
+          <div className="about-eyebrow mono reveal">Scene Three — Self</div>
+          <h2 className="about-statement reveal">I don't just write code.<br/>I design <em>digital experiences</em>.</h2>
+        </div>
+        <div className="about-body">
+          <p className="reveal">Omar Mohamed is a <b>frontend developer</b> based in Cairo, building interfaces that hold up to the same scrutiny as the brands they represent — precise typography, deliberate motion, and layouts with nothing left to chance.</p>
+          <p className="reveal">The second half of the practice is automation: using tools like <b>n8n</b> to give clients systems that keep working after the project ships, connecting the interface to the data behind it.</p>
+          <p className="reveal">Two disciplines, one standard — <b>if it doesn't feel considered, it isn't finished.</b></p>
+
+          <div className="metrics reveal">
+            <Stat target={15} label="Years old — building since day one" />
+            <Stat target={2} suffix="+" label="Years hands-on frontend practice" />
+            <Stat target={3} label="Disciplines bridged in every project" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CaseStudy({ data }) {
+
+  const frameRef = useRef(null);
+
+  useEffect(() => {
+
+    if (!frameRef.current) return;
+
+    gsap.from(frameRef.current, {
+      scale: 0.9,
+      opacity: 0,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: frameRef.current,
+        start: "top 90%",
+        end: "top 20%",
+        scrub: true
+      }
+    });
+
+  }, []);
+
+
+  return (
+    <article className={"case " + data.cls}>
+
+      <div className="case-grid">
+
+        <div className="case-index reveal">
+          {data.idx}
+        </div>
+
+
+        <div>
+
+          <div className={"case-tag mono reveal " + data.tagCls}>
+            {data.tag}
+          </div>
+
+
+          <h3 className="reveal">
+            {data.title[0]}
+            <br />
+            {data.title[1]}
+          </h3>
+
+
+          <p className="reveal">
+            {data.body}
+          </p>
+
+
+          <div className="case-tools reveal">
+            {
+              data.tools.map((t)=>(
+                <span key={t}>{t}</span>
+              ))
+            }
+          </div>
+
+
+
+{/* PROJECT IMAGES */}
+          <div 
+            className="case-gallery"
+            ref={frameRef}
+          >
+
+            {
+              data.images ? (
+
+                data.images.map((img,index)=>(
+                  <img
+                    key={index}
+                    src={img}
+                    alt={data.title.join(" ")}
+                  />
+                ))
+
+              ) : (
+
+                <img
+                  src={data.image}
+                  alt={data.title.join(" ")}
+                />
+
+              )
+            }
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </article>
+  );
+}
+
+function Work(){
+  const ref = useRef(null);
+  useSceneReveal(".reveal", ref);
+  return (
+    <section id="work" ref={ref}>
+      <div className="work-intro">
+        <div className="about-eyebrow mono reveal">Scene Four — Work</div>
+        <h2 className="display reveal">Selected<br/>Case Studies</h2>
+      </div>
+      {CASES.map(c=> <CaseStudy key={c.idx} data={c} />)}
+    </section>
+  );
+}
+
+/* ---------------- Skills — typography, not cards ---------------- */
+function Skills(){
+  const ref = useRef(null);
+  useSceneReveal(".reveal", ref);
+  return (
+    <section className="skills" id="skills" ref={ref}>
+      <div className="skills-head">
+        <div className="about-eyebrow mono reveal" style={{color:"var(--orange)"}}>Scene Five — Skills</div>
+        <h2 className="display reveal">Tools of<br/>the Practice</h2>
+      </div>
+      <div className="skills-list">
+        {SKILLS.map((s, i)=>(
+          <div className="skill-row reveal" key={s.name} data-hover>
+            <span className="skill-idx mono">{String(i+1).padStart(2,'0')}</span>
+            <span className="skill-name">{s.name}</span>
+            <span className="skill-tag">{s.tag}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Timeline(){
+  const ref = useRef(null);
+  const lineRef = useRef(null);
+
+  useEffect(()=>{
+    const items = ref.current.querySelectorAll(".t-item");
+    items.forEach((el, i)=>{
+      gsap.to(el, {
+        opacity:1, y:0, duration:0.8, ease:"power3.out", delay:i*0.06,
+        scrollTrigger:{ trigger:el, start:"top 85%", toggleActions:"play none none reverse" }
+      });
+      ScrollTrigger.create({
+        trigger: el, start:"top 70%",
+        onEnter: ()=> el.classList.add("in"),
+        onLeaveBack: ()=> el.classList.remove("in"),
+      });
+    });
+
+    gsap.to(lineRef.current, {
+      scaleY:1, ease:"none",
+      scrollTrigger:{ trigger:ref.current, start:"top 70%", end:"bottom 60%", scrub:true }
+    });
+  }, []);
+
+  return (
+    <section className="timeline" id="timeline">
+      <div className="timeline-head">
+        <div className="about-eyebrow mono reveal">Scene Six — Path</div>
+        <h2 className="display reveal">Career<br/>Chronology</h2>
+      </div>
+      <div className="timeline-list" ref={ref}>
+        <div className="timeline-line" ref={lineRef}></div>
+        {TIMELINE.map((t, i)=>(
+          <div className="t-item reveal" key={i}>
+            <div className="t-dot"></div>
+            <div className="t-year mono">{t.year}</div>
+            <h4>{t.title}</h4>
+            <p>{t.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Contact(){
+  const ref = useRef(null);
+  useSceneReveal(".reveal", ref);
+  return (
+    <section className="contact" id="contact" ref={ref}>
+      <div className="contact-inner">
+        <div className="contact-eyebrow mono reveal">Scene Seven — Close</div>
+        <h2 className="display reveal">
+          Let's build<br/>
+          <Magnetic strength={0.3}>
+            <a href="mailto:hello@omarmohamed.dev" className="contact-link" data-hover>something considered ↗</a>
+          </Magnetic>
+        </h2>
+
+        <div className="contact-meta reveal">
+          <div className="contact-col">
+            <span className="mono" style={{color:"var(--grey-dim)", fontSize:"10px"}}>Contact</span>
+            <a href="mailto:hello@omarmohamed.dev" data-hover>hello@omarmohamed.dev</a>
+          </div>
+          <div className="contact-col">
+            <span className="mono" style={{color:"var(--grey-dim)", fontSize:"10px"}}>Based In</span>
+            <a href="#" data-hover>Cairo, Egypt</a>
+          </div>
+          <div className="contact-col">
+            <span className="mono" style={{color:"var(--grey-dim)", fontSize:"10px"}}>Elsewhere</span>
+            <a href="#" data-hover>LinkedIn</a>
+            <a href="#" data-hover>GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer(){
+  return (
+    <footer>
+      <span>© 2026 Omar Mohamed. All rights reserved.</span>
+      <span>Frontend Development — AI Automation</span>
+    </footer>
+  );
+}
+
+function App(){
+    
+  const [active, setActive] = useState("hero");
+  useSmoothScrollAndIntro();
+
+  useEffect(()=>{
+    SCENES.forEach(s=>{
+      const el = document.getElementById(s.id);
+      if(!el) return;
+      ScrollTrigger.create({
+        trigger: el, start:"top center", end:"bottom center",
+        onEnter: ()=> setActive(s.id),
+        onEnterBack: ()=> setActive(s.id),
+      });
+    });
+    const t = setTimeout(()=> ScrollTrigger.refresh(), 500);
+    return ()=> clearTimeout(t);
+  }, []);
+
+  return (
+    <React.Fragment>
+      <Curtain />
+      <Grain />
+      <CustomCursor />
+      <Nav />
+      <Rail active={active} />
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <Hero />
+          <Manifesto />
+          <About />
+          <Work />
+          <Skills />
+          <Timeline />
+          <Contact />
+          <Footer />
+        </div>
+      </div>
+    </React.Fragment>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
