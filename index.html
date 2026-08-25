@@ -1,155 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Omar Mohamed — Frontend Developer &amp; AI Automation</title>
-  <meta name="description"
-    content="Omar Mohamed. Frontend Developer designing experiences, building AI automation systems.">
+  <title>Omar Mohamed — Frontend Developer &amp; AI Automation Enthusiast</title>
+  <meta name="description" content="Omar Mohamed. Frontend Developer &amp; AI Automation Enthusiast. Building immersive digital experiences where code meets design, motion meets interaction, and technology meets curiosity.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://omarmohamed.dev">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Omar Mohamed — Frontend Developer & AI Automation Enthusiast">
+  <meta property="og:description" content="Building immersive digital experiences where code meets design, motion meets interaction, and technology meets curiosity.">
+  <meta property="og:site_name" content="Omar Mohamed">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Omar Mohamed — Frontend Developer & AI Automation Enthusiast">
+  <meta name="twitter:description" content="Building immersive digital experiences where code meets design, motion meets interaction, and technology meets curiosity.">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Omar Mohamed",
+    "jobTitle": "Frontend Developer & AI Automation Enthusiast",
+    "description": "Building immersive digital experiences where code meets design, motion meets interaction, and technology meets curiosity.",
+    "url": "https://omarmohamed.dev",
+    "sameAs": [
+      "https://github.com/omarsaro-dev",
+      "https://www.linkedin.com/in/omar-saro-54381936a"
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+  <!-- React -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 
 <body>
-
+  <canvas id="webgl-canvas" aria-hidden="true"></canvas>
   <div id="root"></div>
 
   <script type="text/babel">
-
-    const { useEffect, useRef, useState, useLayoutEffect } = React;
-
+    const { useEffect, useRef, useState, useLayoutEffect, useCallback, useMemo } = React;
     gsap.registerPlugin(ScrollTrigger);
 
+    /* ============================================================
+       DATA
+       ============================================================ */
     const SCENES = [
-      { id: "hero", label: "Scene 01 — Open" },
-      { id: "manifesto", label: "Scene 02 — Manifesto" },
-      { id: "about", label: "Scene 03 — Self" },
-      { id: "work", label: "Scene 04 — Work" },
-      { id: "skills", label: "Scene 05 — Skills" },
-      { id: "timeline", label: "Scene 06 — Path" },
-      { id: "contact", label: "Scene 07 — Close" },
+      { id: "hero", label: "01 — Entry" },
+      { id: "manifesto", label: "02 — Identity" },
+      { id: "about", label: "03 — Mind" },
+      { id: "journey", label: "04 — Journey" },
+      { id: "skills", label: "05 — Skills" },
+      { id: "work", label: "06 — Work" },
+      { id: "ai-world", label: "07 — AI" },
+      { id: "experiments", label: "08 — Lab" },
+      { id: "now", label: "09 — Now" },
+      { id: "future", label: "10 — Future" },
+      { id: "contact", label: "11 — Contact" },
     ];
 
     const CASES = [
       {
-        idx: "01",
-        cls: "c1",
-        tag: "Automation · n8n · Google Sheets",
-        tagCls: "orange",
-
+        idx: "01", cls: "c1",
+        tag: "Automation · n8n · Google Sheets", tagCls: "orange",
         title: ["AI Paint", "Assistant"],
         badge: "Case 01",
-
-        body: "A workflow that turns a client's raw paint inventory into a live, self-updating advisor — n8n orchestrates the logic, Google Sheets holds the source of truth, and the front end never shows a stale answer.",
-
-        tools: [
-          "n8n",
-          "Google Sheets API",
-          "Automation Logic",
-          "Frontend UI"
-        ],
-
-        images: [
-          "./assets/1.png"
-        ],
-
+        body: "An AI-powered automation assistant for querying paint product prices. A workflow that turns raw paint inventory data into a live, self-updating advisor — n8n orchestrates the logic, Google Sheets holds the source of truth, and the interface delivers answers instantly.",
+        tools: ["n8n", "Google Sheets API", "Webhooks", "Arabic RTL UI", "Automation Logic"],
+        images: ["./assets/1.png"],
         frameLabel: "Workflow preview — 01 / AI Paint Assistant",
+        diagram: [
+          { label: "USER", desc: "Client sends a product query", highlight: true },
+          { label: "CHAT", desc: "AI processes natural language", highlight: false },
+          { label: "WEBHOOK", desc: "Data forwarded to n8n", highlight: false },
+          { label: "N8N", desc: "Logic engine processes request", highlight: true },
+          { label: "GOOGLE SHEETS", desc: "Product database lookup", highlight: false },
+          { label: "RESPONSE", desc: "Price data returned to user", highlight: true },
+        ]
       },
-
-
       {
-        idx: "02",
-        cls: "c2",
-        tag: "Web Design · Architecture & Interiors",
-        tagCls: "violet",
-
+        idx: "02", cls: "c2",
+        tag: "Web Design · Architecture & Interiors", tagCls: "violet",
         title: ["Luxury", "Interior Site"],
         badge: "Case 02",
-
-        body: "A high-end showcase built for an interior design studio with cinematic visuals and immersive storytelling.",
-
-        tools: [
-          "HTML",
-          "CSS",
-          "JavaScript",
-          "GSAP",
-          "Luxury UI"
-        ],
-
+        body: "A high-end showcase built for an interior design studio. Cinematic visuals, immersive storytelling, and a visual language that matches the precision of the work being presented — luxury architecture distilled into a digital experience.",
+        tools: ["HTML", "CSS", "JavaScript", "GSAP", "Luxury UI"],
         images: [
-          "./assets/mousa1.png",
-          "./assets/mousaa2.png",
-          "./assets/mousaa3.png",
-          "./assets/mousaa4.png",
-          "./assets/mousaa5.png",
-          "./assets/mousaa6.png",
-          "./assets/mousaa7.png",
-          "./assets/mousaa8.png",
-          "./assets/mousaa9.png"
+          "./assets/mousa1.png", "./assets/mousaa2.png", "./assets/mousaa3.png",
+          "./assets/mousaa4.png", "./assets/mousaa5.png", "./assets/mousaa6.png",
+          "./assets/mousaa7.png", "./assets/mousaa8.png", "./assets/mousaa9.png"
         ],
-
-
         frameLabel: "Site preview — Luxury Interior Studio"
       },
-
-
       {
-        idx: "03",
-        cls: "c3",
-        tag: "Brand · Portfolio",
-        tagCls: "orange",
-
+        idx: "03", cls: "c3",
+        tag: "Brand · Portfolio · Creative Dev", tagCls: "orange",
         title: ["This", "Portfolio"],
         badge: "Case 03",
-
-        body: "The site you're on. One continuous cinematic sequence built to hold both sides of the practice — the craft of the interface and the systems running underneath it — under a single dark, considered identity.",
-
-        tools: [
-          "React",
-          "GSAP",
-          "ScrollTrigger",
-          "Motion Direction"
-        ],
-
-        images: [
-          "./assets/omar.png"
-        ],
-
-        frameLabel: "Live — 03 / Cinematic Studio Portfolio",
+        body: "The site you are on. One continuous cinematic sequence built to hold both sides of the practice — the craft of the interface and the systems running underneath it — under a single dark, considered identity.",
+        tools: ["React", "GSAP", "ScrollTrigger", "Three.js", "WebGL", "Motion Direction"],
+        images: ["./assets/omar.png"],
+        frameLabel: "Live — 03 / Cinematic Studio Portfolio"
       },
     ];
 
-    const TIMELINE = [
-      { year: "Foundations", title: "First lines of code", body: "Started building on the web early — HTML, CSS, and JavaScript as a daily practice rather than a course to finish." },
-      { year: "Frontend Practice", title: "Freelance & client work", body: "Two years deep in production frontend work — freelance builds and client sites, developing an eye for interfaces that feel deliberate rather than default." },
-      { year: "Expansion", title: "Into AI automation", body: "Started pairing frontend craft with automation tooling — n8n workflows and connected data sources — to ship systems, not just screens." },
-      { year: "Now", title: "Bridging both disciplines", body: "Positioned at the intersection of high-end frontend design and AI automation, building a practice and a portfolio around that exact bridge." },
+    const JOURNEY = [
+      { idx: "01", title: "HTML", body: "First lines of code. Learning the structure of the web — elements, tags, semantic markup. The foundation of everything that follows." },
+      { idx: "02", title: "CSS", body: "Bringing structure to life. Layouts, colors, typography. Learning that design is not decoration — it is communication." },
+      { idx: "03", title: "JavaScript", body: "The web becomes interactive. Logic, events, DOM manipulation. The moment code stops being static and starts responding." },
+      { idx: "04", title: "React", body: "Component thinking. Building interfaces as systems. State, props, reusability. Thinking in architectures instead of pages." },
+      { idx: "05", title: "Real Projects", body: "Two years deep in production frontend work. Freelance builds and client sites. Developing an eye for interfaces that feel deliberate rather than default." },
+      { idx: "06", title: "AI Automation", body: "Started pairing frontend craft with automation tooling. n8n workflows, connected data sources, and webhooks. Shipping systems, not just screens." },
+      { idx: "07", title: "GSAP", body: "Motion as a design tool. Learning that animation is not decoration — it is a language. ScrollTrigger, timelines, stagger, easing." },
+      { idx: "08", title: "Three.js & WebGL", body: "Entering the third dimension. Particles, shaders, geometry. Building experiences that exist beyond the flat screen." },
+      { idx: "09", title: "Creative Development", body: "Where all disciplines converge. Code, design, motion, 3D, AI — unified into immersive digital experiences." },
     ];
 
-    const SKILLS = [
-      { name: "HTML", tag: "Markup" },
-      { name: "CSS", tag: "Styling" },
-      { name: "JavaScript", tag: "Language" },
-      { name: "React", tag: "Framework" },
-      { name: "GSAP", tag: "Motion" },
-      { name: "AI Automation", tag: "Systems" },
-      { name: "n8n", tag: "Workflows" },
-      { name: "UI / UX Design", tag: "Craft" },
+    const SKILLS_DATA = [
+      { name: "HTML", tag: "Markup", status: "practicing", desc: "Semantic, accessible markup. The skeleton of every interface." },
+      { name: "CSS", tag: "Styling", status: "practicing", desc: "Layout, typography, responsive design. Making structure beautiful." },
+      { name: "JavaScript", tag: "Language", status: "practicing", desc: "Logic, interactivity, and the engine behind every dynamic interface." },
+      { name: "React", tag: "Framework", status: "practicing", desc: "Component architecture. Building interfaces as reusable systems." },
+      { name: "GSAP", tag: "Motion", status: "learning", desc: "Animation as a design language. Timelines, ScrollTrigger, easing." },
+      { name: "Three.js", tag: "3D / WebGL", status: "learning", desc: "Three-dimensional experiences on the web. Particles, geometry, shaders." },
+      { name: "AI Automation", tag: "Systems", status: "building", desc: "n8n, webhooks, APIs — building systems that work after the project ships." },
+      { name: "n8n", tag: "Workflows", status: "building", desc: "Visual workflow automation. Connecting services, automating logic." },
+      { name: "Figma", tag: "Design", status: "practicing", desc: "From wireframe to prototype. Translating ideas into visual systems." },
+      { name: "APIs / Webhooks", tag: "Integration", status: "building", desc: "Connecting interfaces to data. REST, webhooks, real-time flows." },
     ];
 
-    /* ---------------- Smooth scroll + curtain intro (top-level plumbing) ---------------- */
+    const PIPELINE_NODES = [
+      { label: "TRIGGER", name: "User Input", desc: "A question is asked. A form is submitted. A request arrives.", color: "var(--violet)" },
+      { label: "PROCESS", name: "AI Processing", desc: "Natural language is parsed. Intent is understood. Context is extracted.", color: "var(--violet)" },
+      { label: "ORCHESTRATE", name: "n8n Workflow", desc: "Logic branches. Conditions evaluate. Data is routed to the right place.", color: "var(--orange)" },
+      { label: "DATABASE", name: "Google Sheets", desc: "Product data lives here. Rows become answers. Sheets become databases.", color: "var(--orange)" },
+      { label: "RESPOND", name: "Structured Output", desc: "The answer is formatted, validated, and returned. Instantly.", color: "var(--violet)" },
+    ];
+
+    const EXPERIMENTS = [
+      { idx: "01", title: "Text Distortion", desc: "Characters morph and shift with cursor proximity. Typography as a living material." },
+      { idx: "02", title: "Particle Field", desc: "Thousands of points responding to mouse position. Digital dust in constant motion." },
+      { idx: "03", title: "Magnetic Cursor", desc: "The cursor pulls UI elements toward it. Interaction as gravitational force." },
+      { idx: "04", title: "Scroll Physics", desc: "Content moves with momentum. Scrolling becomes a physical act." },
+      { idx: "05", title: "WebGL Object", desc: "A 3D form reacting to user input. Geometry that breathes." },
+      { idx: "06", title: "Kinetic Typography", desc: "Letters dance, stack, scatter. Words as motion." },
+      { idx: "07", title: "AI Interface", desc: "Human-machine conversation through design. The future of interaction." },
+    ];
+
+    const NOW_LEARNING = [
+      { name: "GSAP", status: "learning" },
+      { name: "Three.js", status: "learning" },
+      { name: "WebGL", status: "exploring" },
+      { name: "Creative Development", status: "learning" },
+    ];
+    const NOW_BUILDING = [
+      { name: "Interactive Portfolio", status: "building" },
+      { name: "AI Automation Projects", status: "building" },
+      { name: "Creative Experiments", status: "building" },
+    ];
+    const NOW_EXPLORING = [
+      { name: "AI-Powered Interfaces", status: "exploring" },
+      { name: "Advanced Frontend Architecture", status: "exploring" },
+      { name: "Creative Technology", status: "exploring" },
+    ];
+
+    const FUTURE_ITEMS = [
+      { title: "Advanced Frontend", desc: "Deep mastery of modern frontend architecture. Performance, patterns, and precision.", badge: "Next" },
+      { title: "Creative Coding", desc: "Generative art, procedural visuals, and experiments at the boundary of code and design.", badge: "Next" },
+      { title: "AI Integration", desc: "Building interfaces that think. AI-powered experiences that adapt and respond.", badge: "Exploring" },
+      { title: "3D & WebGL", desc: "Immersive digital environments. Experiences that exist beyond the flat screen.", badge: "Exploring" },
+    ];
+
+    const MINDSET_LINES = [
+      "I learn by building.",
+      "I experiment before I settle.",
+      "I care about the details.",
+      "I want interfaces to feel alive.",
+      "I combine design and engineering.",
+      "I am constantly learning.",
+    ];
+
+    const PERSONALITY_KW = [
+      { text: "BUILD", x: "8%", y: "12%" },
+      { text: "LEARN", x: "82%", y: "8%" },
+      { text: "EXPERIMENT", x: "5%", y: "75%" },
+      { text: "DESIGN", x: "88%", y: "68%" },
+      { text: "CODE", x: "15%", y: "45%" },
+      { text: "AUTOMATE", x: "80%", y: "38%" },
+      { text: "CREATE", x: "50%", y: "5%" },
+      { text: "BREAK", x: "70%", y: "85%" },
+      { text: "REBUILD", x: "28%", y: "90%" },
+    ];
+
+    /* ============================================================
+       HOOKS
+       ============================================================ */
     function useSmoothScrollAndIntro() {
       useLayoutEffect(() => {
         const isDesktop = window.matchMedia('(min-width: 861px)').matches && !('ontouchstart' in window);
@@ -190,7 +250,6 @@
 
           const onResize = () => { setHeight(); ScrollTrigger.refresh(); };
           window.addEventListener('resize', onResize);
-
           const t = setTimeout(() => { setHeight(); ScrollTrigger.refresh(); }, 400);
 
           return () => {
@@ -205,6 +264,239 @@
       }, []);
     }
 
+    /* ============================================================
+       THREE.JS WEBGL ENVIRONMENT
+       ============================================================ */
+    function useWebGL() {
+      useEffect(() => {
+        const canvas = document.getElementById('webgl-canvas');
+        if (!canvas || typeof THREE === 'undefined') return;
+
+        let renderer, scene, camera, particles, ico, raf;
+        let mouseX = 0, mouseY = 0, scrollY = 0;
+        let targetMouseX = 0, targetMouseY = 0;
+        const isMobile = window.innerWidth < 860;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion) {
+          canvas.style.display = 'none';
+          return;
+        }
+
+        try {
+          renderer = new THREE.WebGLRenderer({
+            canvas, antialias: !isMobile, alpha: true,
+            powerPreference: 'low-power'
+          });
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+
+          scene = new THREE.Scene();
+          scene.fog = new THREE.FogExp2(0x050505, 0.0008);
+
+          camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+          camera.position.z = 500;
+
+          /* Particles */
+          const count = isMobile ? 1500 : 4000;
+          const geo = new THREE.BufferGeometry();
+          const positions = new Float32Array(count * 3);
+          const velocities = new Float32Array(count * 3);
+          for (let i = 0; i < count; i++) {
+            const i3 = i * 3;
+            positions[i3] = (Math.random() - 0.5) * 2000;
+            positions[i3 + 1] = (Math.random() - 0.5) * 2000;
+            positions[i3 + 2] = (Math.random() - 0.5) * 2000;
+            velocities[i3] = (Math.random() - 0.5) * 0.3;
+            velocities[i3 + 1] = (Math.random() - 0.5) * 0.3;
+            velocities[i3 + 2] = (Math.random() - 0.5) * 0.3;
+          }
+          geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+          const mat = new THREE.PointsMaterial({
+            color: 0xff4d00, size: isMobile ? 1.8 : 1.2,
+            transparent: true, opacity: 0.4,
+            sizeAttenuation: true,
+          });
+          particles = new THREE.Points(geo, mat);
+          scene.add(particles);
+
+          /* Central geometry */
+          const icoGeo = new THREE.IcosahedronGeometry(isMobile ? 40 : 60, 1);
+          const icoMat = new THREE.MeshBasicMaterial({
+            color: 0xff4d00, wireframe: true, transparent: true, opacity: 0.15
+          });
+          ico = new THREE.Mesh(icoGeo, icoMat);
+          scene.add(ico);
+
+          /* Secondary ring */
+          const ringGeo = new THREE.TorusGeometry(isMobile ? 55 : 80, 0.5, 8, 64);
+          const ringMat = new THREE.MeshBasicMaterial({
+            color: 0x8b5cf6, transparent: true, opacity: 0.08
+          });
+          const ring = new THREE.Mesh(ringGeo, ringMat);
+          ring.rotation.x = Math.PI * 0.3;
+          scene.add(ring);
+
+          /* Mouse tracking */
+          const onMouseMove = (e) => {
+            targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+          };
+          window.addEventListener('mousemove', onMouseMove);
+
+          /* Scroll tracking */
+          const onScroll = () => { scrollY = window.scrollY; };
+          window.addEventListener('scroll', onScroll, { passive: true });
+
+          /* Visibility */
+          let visible = true;
+          const onVisibility = () => { visible = !document.hidden; };
+          document.addEventListener('visibilitychange', onVisibility);
+
+          /* Animation */
+          let time = 0;
+          function animate() {
+            raf = requestAnimationFrame(animate);
+            if (!visible) return;
+            time += 0.005;
+
+            mouseX += (targetMouseX - mouseX) * 0.03;
+            mouseY += (targetMouseY - mouseY) * 0.03;
+
+            /* Particles drift */
+            const pos = particles.geometry.attributes.position.array;
+            for (let i = 0; i < count; i++) {
+              const i3 = i * 3;
+              pos[i3] += velocities[i3];
+              pos[i3 + 1] += velocities[i3 + 1];
+              pos[i3 + 2] += velocities[i3 + 2];
+              if (Math.abs(pos[i3]) > 1000) velocities[i3] *= -1;
+              if (Math.abs(pos[i3 + 1]) > 1000) velocities[i3 + 1] *= -1;
+              if (Math.abs(pos[i3 + 2]) > 1000) velocities[i3 + 2] *= -1;
+            }
+            particles.geometry.attributes.position.needsUpdate = true;
+
+            /* Particles react to mouse */
+            particles.rotation.y += (mouseX * 0.08 - particles.rotation.y) * 0.01;
+            particles.rotation.x += (mouseY * 0.05 - particles.rotation.x) * 0.01;
+
+            /* Central object */
+            ico.rotation.x = time * 0.4 + mouseY * 0.3;
+            ico.rotation.y = time * 0.3 + mouseX * 0.3;
+            ico.scale.setScalar(1 + Math.sin(time * 2) * 0.05);
+
+            ring.rotation.z = time * 0.2;
+            ring.rotation.y = mouseX * 0.2;
+
+            /* Camera responds to scroll */
+            const scrollNorm = scrollY / (document.body.scrollHeight - window.innerHeight || 1);
+            camera.position.z = 500 - scrollNorm * 200;
+            camera.position.y = -scrollNorm * 100;
+
+            renderer.render(scene, camera);
+          }
+          animate();
+
+          /* Resize */
+          const onResize = () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+          };
+          window.addEventListener('resize', onResize);
+
+          return () => {
+            cancelAnimationFrame(raf);
+            window.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onResize);
+            document.removeEventListener('visibilitychange', onVisibility);
+            renderer.dispose();
+            geo.dispose();
+            mat.dispose();
+            icoGeo.dispose();
+            icoMat.dispose();
+            ringGeo.dispose();
+            ringMat.dispose();
+          };
+        } catch (e) {
+          canvas.style.display = 'none';
+        }
+      }, []);
+    }
+
+    /* ============================================================
+       LOADING SCREEN
+       ============================================================ */
+    function Loader({ onComplete }) {
+      const [lines, setLines] = useState([]);
+      const [percent, setPercent] = useState(0);
+      const [showPercent, setShowPercent] = useState(false);
+      const [done, setDone] = useState(false);
+
+      useEffect(() => {
+        const sequence = [
+          { text: "> INITIALIZING OMAR.EXE", delay: 200 },
+          { text: "> LOADING DIGITAL ENVIRONMENT...", delay: 600 },
+          { text: "> MOUNTING COMPONENTS", delay: 400 },
+          { text: "> ESTABLISHING CONNECTION", delay: 350 },
+        ];
+
+        let timeouts = [];
+        sequence.forEach((item, i) => {
+          timeouts.push(setTimeout(() => {
+            setLines(prev => [...prev, item.text]);
+          }, item.delay + i * 300));
+        });
+
+        /* Percentage counter */
+        timeouts.push(setTimeout(() => setShowPercent(true), 1400));
+        let current = 0;
+        const interval = setInterval(() => {
+          current += Math.random() * 12 + 3;
+          if (current >= 100) {
+            current = 100;
+            clearInterval(interval);
+            timeouts.push(setTimeout(() => {
+              setDone(true);
+              timeouts.push(setTimeout(() => onComplete(), 800));
+            }, 400));
+          }
+          setPercent(Math.floor(current));
+        }, 80);
+
+        return () => {
+          timeouts.forEach(clearTimeout);
+          clearInterval(interval);
+        };
+      }, []);
+
+      return (
+        <div className={`loader ${done ? 'done' : ''}`} aria-hidden="true">
+          <div className="loader-terminal">
+            {lines.map((line, i) => (
+              <div key={i} className={`line ${true ? 'visible' : ''}`}>
+                {line}
+                {i === lines.length - 1 && <span className="cursor-blink"></span>}
+              </div>
+            ))}
+          </div>
+          {showPercent && (
+            <div className={`loader-percent ${true ? 'visible' : ''}`}>
+              {String(percent).padStart(3, '0')}%
+            </div>
+          )}
+          <div className={`loader-bar ${showPercent ? 'visible' : ''}`}>
+            <div className="loader-bar-fill" style={{ width: percent + '%' }}></div>
+          </div>
+        </div>
+      );
+    }
+
+    /* ============================================================
+       CURTAIN INTRO (after loader)
+       ============================================================ */
     function Curtain() {
       const leftRef = useRef(null);
       const rightRef = useRef(null);
@@ -214,24 +506,30 @@
         const tl = gsap.timeline({ delay: 0.15 });
         tl.to(markRef.current, { opacity: 0, duration: 0.4, delay: 0.5 })
           .to([leftRef.current, rightRef.current], {
-            scaleX: 0, duration: 1.1, ease: "power4.inOut", stagger: 0
+            scaleX: 0, duration: 1.1, ease: "power4.inOut"
           }, "-=0.1")
           .set([leftRef.current, rightRef.current], { display: "none" });
         return () => tl.kill();
       }, []);
 
       return (
-        <div className="curtain">
+        <div className="curtain" aria-hidden="true">
           <div className="curtain-panel" ref={leftRef} style={{ transformOrigin: "left" }}></div>
           <div className="curtain-panel" ref={rightRef} style={{ transformOrigin: "right" }}></div>
-          <div className="curtain-mark mono" ref={markRef}>Omar Mohamed — Loading</div>
+          <div className="curtain-mark mono" ref={markRef}>Omar Mohamed</div>
         </div>
       );
     }
 
-    function Grain() { return <div className="grain"></div>; }
+    /* ============================================================
+       GRAIN + VIGNETTE
+       ============================================================ */
+    function Grain() { return <div className="grain" aria-hidden="true"></div>; }
+    function Vignette() { return <div className="vignette" aria-hidden="true"></div>; }
 
-    /* ---------------- Cursor: glow + ring + dot + magnetic hookup ---------------- */
+    /* ============================================================
+       CUSTOM CURSOR
+       ============================================================ */
     function CustomCursor() {
       const dotRef = useRef(null);
       const ringRef = useRef(null);
@@ -239,6 +537,7 @@
 
       useEffect(() => {
         if (!window.matchMedia('(min-width: 861px)').matches) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
         const dotX = gsap.quickTo(dotRef.current, "x", { duration: 0.08, ease: "power3" });
         const dotY = gsap.quickTo(dotRef.current, "y", { duration: 0.08, ease: "power3" });
@@ -254,18 +553,19 @@
         };
         window.addEventListener('mousemove', move);
 
+        const onEnter = () => ringRef.current.classList.add('hover');
+        const onLeave = () => ringRef.current.classList.remove('hover');
+
         const attach = () => {
           document.querySelectorAll('[data-hover]').forEach(el => {
+            el.removeEventListener('mouseenter', onEnter);
+            el.removeEventListener('mouseleave', onLeave);
             el.addEventListener('mouseenter', onEnter);
             el.addEventListener('mouseleave', onLeave);
           });
         };
-        const onEnter = () => ringRef.current.classList.add('hover');
-        const onLeave = () => ringRef.current.classList.remove('hover');
         attach();
-
-        // re-attach periodically for dynamically-revealed elements
-        const interval = setInterval(attach, 1500);
+        const interval = setInterval(attach, 2000);
 
         return () => {
           window.removeEventListener('mousemove', move);
@@ -275,14 +575,16 @@
 
       return (
         <React.Fragment>
-          <div className="cursor-glow" ref={glowRef}></div>
-          <div className="cursor-ring" ref={ringRef}></div>
-          <div className="cursor-dot" ref={dotRef}></div>
+          <div className="cursor-glow" ref={glowRef} aria-hidden="true"></div>
+          <div className="cursor-ring" ref={ringRef} aria-hidden="true"></div>
+          <div className="cursor-dot" ref={dotRef} aria-hidden="true"></div>
         </React.Fragment>
       );
     }
 
-    /* ---------------- Magnetic wrapper ---------------- */
+    /* ============================================================
+       MAGNETIC WRAPPER
+       ============================================================ */
     function Magnetic({ children, strength = 0.4, className = "" }) {
       const ref = useRef(null);
 
@@ -313,9 +615,12 @@
       return <span className={"magnetic-wrap " + className} ref={ref} data-hover>{children}</span>;
     }
 
+    /* ============================================================
+       NAVIGATION
+       ============================================================ */
     function Nav() {
       return (
-        <nav className="nav">
+        <nav className="nav" role="navigation" aria-label="Main navigation">
           <div className="nav-mark mono">OMAR&nbsp;MOHAMED</div>
           <div className="nav-links">
             <Magnetic strength={0.5}><a href="#about" data-hover>About</a></Magnetic>
@@ -327,9 +632,12 @@
       );
     }
 
+    /* ============================================================
+       SCENE RAIL
+       ============================================================ */
     function Rail({ active }) {
       return (
-        <div className="rail">
+        <div className="rail" aria-hidden="true">
           {SCENES.map(s => (
             <div key={s.id} className={"rail-item" + (active === s.id ? " active" : "")}>
               <span className="rail-label mono">{s.label}</span>
@@ -340,17 +648,22 @@
       );
     }
 
-    /* ---------------- Split-char headline ---------------- */
+    /* ============================================================
+       SPLIT WORD
+       ============================================================ */
     function SplitWord({ text, outline }) {
       return (
         <span className={"word" + (outline ? " outline" : "")}>
           {text.split("").map((c, i) => (
-            <span className="char" key={i}>{c}</span>
+            <span className="char" key={i}>{c === " " ? "\u00A0" : c}</span>
           ))}
         </span>
       );
     }
 
+    /* ============================================================
+       HERO
+       ============================================================ */
     function Hero() {
       const heroRef = useRef(null);
       const imgwrapRef = useRef(null);
@@ -363,13 +676,13 @@
           .to(".hero-role", { opacity: 1, duration: 0.9 }, 1.0)
           .to(".scroll-cue", { opacity: 1, duration: 0.9 }, 1.2);
 
-        // scroll zoom + parallax on image
         gsap.to(imgwrapRef.current, {
           scale: 1.18, yPercent: 8, ease: "none",
           scrollTrigger: { trigger: heroRef.current, start: "top top", end: "bottom top", scrub: true }
         });
 
-        // 3D cursor parallax tilt
+        if (!window.matchMedia('(min-width: 860px)').matches) return;
+
         const rotX = gsap.quickTo(imgwrapRef.current, "rotationX", { duration: 0.6, ease: "power3" });
         const rotY = gsap.quickTo(imgwrapRef.current, "rotationY", { duration: 0.6, ease: "power3" });
 
@@ -378,10 +691,8 @@
           if (e.clientY < rect.top || e.clientY > rect.bottom) return;
           const px = (e.clientX - rect.left) / rect.width;
           const py = (e.clientY - rect.top) / rect.height;
-
           rotY((px - 0.5) * 6);
           rotX((0.5 - py) * 4);
-
           spotlightRef.current.style.setProperty('--sx', (px * 100) + '%');
           spotlightRef.current.style.setProperty('--sy', (py * 100) + '%');
         };
@@ -390,7 +701,7 @@
       }, []);
 
       return (
-        <section className="hero" id="hero" ref={heroRef}>
+        <section className="hero" id="hero" ref={heroRef} aria-label="Hero">
           <div className="hero-imagewrap" ref={imgwrapRef}>
             <div className="hero-image-base"></div>
             <div className="hero-image-bright spotlight-mask" ref={spotlightRef}></div>
@@ -398,7 +709,6 @@
             <div className="hero-scanlines"></div>
           </div>
           <div className="hero-vignette"></div>
-
           <div className="hero-content">
             <div className="hero-eyebrow mono">Frontend Developer — AI Automation</div>
             <h1 className="hero-name display">
@@ -407,7 +717,7 @@
             </h1>
             <div className="hero-foot">
               <p className="hero-role">I don't just write code. <b>I design digital experiences</b> — and teach systems to run them.</p>
-              <div className="scroll-cue">
+              <div className="scroll-cue" aria-hidden="true">
                 <span className="mono">Scroll</span>
                 <div className="line"></div>
               </div>
@@ -417,31 +727,80 @@
       );
     }
 
-    /* ---------------- Manifesto ---------------- */
+    /* ============================================================
+       MANIFESTO + PERSONALITY KEYWORDS
+       ============================================================ */
     function Manifesto() {
       const ref = useRef(null);
+      const kwRefs = useRef([]);
 
       useEffect(() => {
         const lines = ref.current.querySelectorAll('.manifesto-line');
+        gsap.set(lines, { y: 30 });
         gsap.timeline({
           scrollTrigger: { trigger: ref.current, start: "top 70%", toggleActions: "play none none reverse" }
-        }).to(lines, { opacity: (i, el) => el.classList.contains('accent') ? 1 : 0.18, y: 0, duration: 0.9, stagger: 0.12, ease: "power3.out" });
+        }).to(lines, {
+          opacity: (i, el) => el.classList.contains('accent') ? 1 : 0.15,
+          y: 0, duration: 0.9, stagger: 0.12, ease: "power3.out"
+        });
 
-        gsap.set(lines, { y: 26 });
+        /* Floating keywords */
+        kwRefs.current.forEach((el, i) => {
+          if (!el) return;
+          gsap.to(el, {
+            opacity: 0.35, duration: 1.5, delay: 0.3 + i * 0.1,
+            scrollTrigger: { trigger: ref.current, start: "top 80%", toggleActions: "play none none reverse" }
+          });
+          gsap.to(el, {
+            y: () => (Math.random() - 0.5) * 20,
+            x: () => (Math.random() - 0.5) * 15,
+            duration: 3 + Math.random() * 2,
+            repeat: -1, yoyo: true, ease: "sine.inOut",
+            delay: i * 0.3
+          });
+        });
+
+        /* Mouse parallax on keywords */
+        const onMove = (e) => {
+          const cx = (e.clientX / window.innerWidth - 0.5) * 2;
+          const cy = (e.clientY / window.innerHeight - 0.5) * 2;
+          kwRefs.current.forEach((el, i) => {
+            if (!el) return;
+            const depth = 0.5 + (i % 3) * 0.3;
+            gsap.to(el, { x: cx * 20 * depth, y: cy * 15 * depth, duration: 1, ease: "power2.out" });
+          });
+        };
+        window.addEventListener('mousemove', onMove);
+        return () => window.removeEventListener('mousemove', onMove);
       }, []);
 
       return (
-        <section className="manifesto" id="manifesto" ref={ref}>
-          <div className="manifesto-lines">
-            <div className="manifesto-line">Design.</div>
-            <div className="manifesto-line">Code.</div>
-            <div className="manifesto-line">Automation.</div>
-            <div className="manifesto-line accent">One vision.</div>
+        <section className="manifesto" id="manifesto" ref={ref} aria-label="Manifesto">
+          <div className="personality-keywords" aria-hidden="true">
+            {PERSONALITY_KW.map((kw, i) => (
+              <span
+                key={kw.text}
+                className="personality-keyword"
+                ref={el => kwRefs.current[i] = el}
+                style={{ left: kw.x, top: kw.y }}
+              >{kw.text}</span>
+            ))}
+          </div>
+          <div className="manifesto-content">
+            <div className="manifesto-lines">
+              <div className="manifesto-line">I build digital experiences</div>
+              <div className="manifesto-line">where <em style={{fontStyle:'normal',color:'var(--orange)'}}>code</em> meets design,</div>
+              <div className="manifesto-line">motion meets interaction,</div>
+              <div className="manifesto-line accent">and technology meets curiosity.</div>
+            </div>
           </div>
         </section>
       );
     }
 
+    /* ============================================================
+       SCENE REVEAL UTILITY
+       ============================================================ */
     function useSceneReveal(selector, container) {
       useEffect(() => {
         const root = container && container.current ? container.current : document;
@@ -456,10 +815,11 @@
       }, []);
     }
 
-    /* ---------------- Animated stat ---------------- */
+    /* ============================================================
+       STAT COUNTER
+       ============================================================ */
     function Stat({ target, suffix = "", label }) {
       const numRef = useRef(null);
-
       useEffect(() => {
         const obj = { val: 0 };
         gsap.to(obj, {
@@ -468,7 +828,6 @@
           onUpdate: () => { numRef.current.textContent = Math.round(obj.val); }
         });
       }, [target]);
-
       return (
         <div>
           <div className="metric-num"><span ref={numRef}>0</span>{suffix}</div>
@@ -477,21 +836,32 @@
       );
     }
 
+    /* ============================================================
+       ABOUT
+       ============================================================ */
     function About() {
       const ref = useRef(null);
       useSceneReveal(".reveal", ref);
       return (
-        <section className="about" id="about" ref={ref}>
+        <section className="about" id="about" ref={ref} aria-label="About">
           <div className="about-grid">
             <div>
-              <div className="about-eyebrow mono reveal">Scene Three — Self</div>
-              <h2 className="about-statement reveal">I don't just write code.<br />I design <em>digital experiences</em>.</h2>
+              <div className="about-eyebrow mono reveal">03 — Mind</div>
+              <h2 className="about-statement reveal">
+                I don't just write code.<br />
+                I design <em>digital experiences</em>.
+              </h2>
             </div>
             <div className="about-body">
-              <p className="reveal">Omar Mohamed is a <b>frontend developer</b> based in Cairo, building interfaces that hold up to the same scrutiny as the brands they represent — precise typography, deliberate motion, and layouts with nothing left to chance.</p>
-              <p className="reveal">The second half of the practice is automation: using tools like <b>n8n</b> to give clients systems that keep working after the project ships, connecting the interface to the data behind it.</p>
-              <p className="reveal">Two disciplines, one standard — <b>if it doesn't feel considered, it isn't finished.</b></p>
-
+              <p className="reveal">
+                Omar Mohamed is a <b>15-year-old frontend developer</b> based in Cairo, building interfaces that hold up to the same scrutiny as the brands they represent — precise typography, deliberate motion, and layouts with nothing left to chance.
+              </p>
+              <p className="reveal">
+                The second half of the practice is automation: using tools like <b>n8n</b> to give clients systems that keep working after the project ships, connecting the interface to the data behind it.
+              </p>
+              <p className="reveal">
+                Two disciplines, one standard — <b>if it doesn't feel considered, it isn't finished.</b>
+              </p>
               <div className="metrics reveal">
                 <Stat target={15} label="Years old — building since day one" />
                 <Stat target={2} suffix="+" label="Years hands-on frontend practice" />
@@ -503,159 +873,24 @@
       );
     }
 
-    function CaseStudy({ data }) {
-
-      const frameRef = useRef(null);
-
-      useEffect(() => {
-
-        if (!frameRef.current) return;
-
-        gsap.from(frameRef.current, {
-          scale: 0.9,
-          opacity: 0,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: frameRef.current,
-            start: "top 90%",
-            end: "top 20%",
-            scrub: true
-          }
-        });
-
-      }, []);
-
-
-      return (
-        <article className={"case " + data.cls}>
-
-          <div className="case-grid">
-
-            <div className="case-index reveal">
-              {data.idx}
-            </div>
-
-
-            <div>
-
-              <div className={"case-tag mono reveal " + data.tagCls}>
-                {data.tag}
-              </div>
-
-
-              <h3 className="reveal">
-                {data.title[0]}
-                <br />
-                {data.title[1]}
-              </h3>
-
-
-              <p className="reveal">
-                {data.body}
-              </p>
-
-
-              <div className="case-tools reveal">
-                {
-                  data.tools.map((t) => (
-                    <span key={t}>{t}</span>
-                  ))
-                }
-              </div>
-
-
-
-              {/* PROJECT IMAGES */}
-              <div
-                className="case-gallery"
-                ref={frameRef}
-              >
-
-                {
-                  data.images ? (
-
-                    data.images.map((img, index) => (
-                      <img
-                        key={index}
-                        src={img}
-                        alt={data.title.join(" ")}
-                      />
-                    ))
-
-                  ) : (
-
-                    <img
-                      src={data.image}
-                      alt={data.title.join(" ")}
-                    />
-
-                  )
-                }
-
-
-              </div>
-
-
-            </div>
-
-          </div>
-
-        </article>
-      );
-    }
-
-    function Work() {
-      const ref = useRef(null);
-      useSceneReveal(".reveal", ref);
-      return (
-        <section id="work" ref={ref}>
-          <div className="work-intro">
-            <div className="about-eyebrow mono reveal">Scene Four — Work</div>
-            <h2 className="display reveal">Selected<br />Case Studies</h2>
-          </div>
-          {CASES.map(c => <CaseStudy key={c.idx} data={c} />)}
-        </section>
-      );
-    }
-
-    /* ---------------- Skills — typography, not cards ---------------- */
-    function Skills() {
-      const ref = useRef(null);
-      useSceneReveal(".reveal", ref);
-      return (
-        <section className="skills" id="skills" ref={ref}>
-          <div className="skills-head">
-            <div className="about-eyebrow mono reveal" style={{ color: "var(--orange)" }}>Scene Five — Skills</div>
-            <h2 className="display reveal">Tools of<br />the Practice</h2>
-          </div>
-          <div className="skills-list">
-            {SKILLS.map((s, i) => (
-              <div className="skill-row reveal" key={s.name} data-hover>
-                <span className="skill-idx mono">{String(i + 1).padStart(2, '0')}</span>
-                <span className="skill-name">{s.name}</span>
-                <span className="skill-tag">{s.tag}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-      );
-    }
-
-    function Timeline() {
+    /* ============================================================
+       JOURNEY / EVOLUTION
+       ============================================================ */
+    function Journey() {
       const ref = useRef(null);
       const lineRef = useRef(null);
 
       useEffect(() => {
-        const items = ref.current.querySelectorAll(".t-item");
-        items.forEach((el, i) => {
+        const nodes = ref.current.querySelectorAll('.evo-node');
+        nodes.forEach((el, i) => {
           gsap.to(el, {
             opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: i * 0.06,
             scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }
           });
           ScrollTrigger.create({
             trigger: el, start: "top 70%",
-            onEnter: () => el.classList.add("in"),
-            onLeaveBack: () => el.classList.remove("in"),
+            onEnter: () => el.classList.add("active"),
+            onLeaveBack: () => el.classList.remove("active"),
           });
         });
 
@@ -666,19 +901,27 @@
       }, []);
 
       return (
-        <section className="timeline" id="timeline">
-          <div className="timeline-head">
-            <div className="about-eyebrow mono reveal">Scene Six — Path</div>
-            <h2 className="display reveal">Career<br />Chronology</h2>
+        <section className="journey" id="journey" aria-label="Journey">
+          <div className="journey-head">
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--orange)" }}>04 — Journey</div>
+            <h2 className="display reveal">The Evolution</h2>
           </div>
-          <div className="timeline-list" ref={ref}>
-            <div className="timeline-line" ref={lineRef}></div>
-            {TIMELINE.map((t, i) => (
-              <div className="t-item reveal" key={i}>
-                <div className="t-dot"></div>
-                <div className="t-year mono">{t.year}</div>
-                <h4>{t.title}</h4>
-                <p>{t.body}</p>
+          <div className="journey-evolution" ref={ref}>
+            <div className="journey-evolution-line" ref={lineRef} style={{
+              position:'absolute', left:'24px', top:'24px', bottom:'24px', width:'1px',
+              background:'linear-gradient(180deg, var(--orange), var(--violet) 60%, transparent)',
+              transformOrigin:'top', transform:'scaleY(0)'
+            }}></div>
+            {JOURNEY.map((j, i) => (
+              <div className="evo-node reveal" key={i} style={{ opacity:0, transform:'translateY(30px)' }}>
+                <div className="evo-dot-wrap">
+                  <div className="evo-dot"></div>
+                </div>
+                <div>
+                  <div className="evo-idx mono">{j.idx}</div>
+                  <h4 className="evo-title">{j.title}</h4>
+                  <p className="evo-body">{j.body}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -686,36 +929,404 @@
       );
     }
 
+    /* ============================================================
+       CASE STUDIES
+       ============================================================ */
+    function CaseStudy({ data }) {
+      const frameRef = useRef(null);
+      const diagramRef = useRef(null);
+
+      useEffect(() => {
+        if (frameRef.current) {
+          gsap.from(frameRef.current, {
+            scale: 0.92, opacity: 0, ease: "power3.out",
+            scrollTrigger: { trigger: frameRef.current, start: "top 90%", end: "top 20%", scrub: true }
+          });
+        }
+        /* Animate diagram nodes */
+        if (diagramRef.current) {
+          const nodes = diagramRef.current.querySelectorAll('.ai-node');
+          const arrows = diagramRef.current.querySelectorAll('.ai-arrow');
+          gsap.to(nodes, {
+            opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: "power3.out",
+            scrollTrigger: { trigger: diagramRef.current, start: "top 80%", toggleActions: "play none none reverse" }
+          });
+          gsap.to(arrows, {
+            opacity: 1, duration: 0.4, stagger: 0.15, delay: 0.3,
+            scrollTrigger: { trigger: diagramRef.current, start: "top 80%", toggleActions: "play none none reverse" }
+          });
+        }
+      }, []);
+
+      return (
+        <article className={"case " + data.cls} aria-label={data.title.join(" ")}>
+          <div className="case-bg"><div className="case-bg-inner"></div></div>
+          <div className="case-grid">
+            <div className="case-index reveal">{data.idx}</div>
+            <div>
+              <div className={"case-tag mono reveal " + data.tagCls}>{data.tag}</div>
+              <h3 className="reveal">
+                {data.title[0]}<br />{data.title[1]}
+              </h3>
+              <p className="reveal">{data.body}</p>
+              <div className="case-tools reveal">
+                {data.tools.map(t => <span key={t}>{t}</span>)}
+              </div>
+              <div className="case-gallery" ref={frameRef}>
+                {data.images.map((img, index) => (
+                  <img key={index} src={img} alt={data.title.join(" ") + " screenshot"} loading="lazy" />
+                ))}
+              </div>
+              {data.diagram && (
+                <div className="ai-diagram" ref={diagramRef}>
+                  <div className="ai-diagram-title">System Architecture — Conceptual Workflow</div>
+                  <div className="ai-flow" style={{ flexDirection: 'column', gap: '8px', alignItems: 'stretch' }}>
+                    {data.diagram.map((node, i) => (
+                      <React.Fragment key={i}>
+                        <div className={`ai-node ${node.highlight ? 'highlight' : ''}`} style={{ opacity:0, transform:'translateY(10px)' }}>
+                          <div style={{ fontSize:'9px', color:'var(--grey-dim)', marginBottom:'2px', fontFamily:'var(--font-mono)', letterSpacing:'0.12em' }}>{node.label}</div>
+                          <div>{node.desc}</div>
+                        </div>
+                        {i < data.diagram.length - 1 && (
+                          <div className="ai-arrow" style={{ textAlign:'center', fontSize:'18px', color:'var(--grey-dim)', opacity:0 }}>↓</div>
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </article>
+      );
+    }
+
+    function Work() {
+      const ref = useRef(null);
+      useSceneReveal(".reveal", ref);
+      return (
+        <section id="work" ref={ref} aria-label="Work">
+          <div className="work-intro">
+            <div className="about-eyebrow mono reveal">06 — Work</div>
+            <h2 className="display reveal">Selected<br />Case Studies</h2>
+          </div>
+          {CASES.map(c => <CaseStudy key={c.idx} data={c} />)}
+        </section>
+      );
+    }
+
+    /* ============================================================
+       SKILLS
+       ============================================================ */
+    function Skills() {
+      const ref = useRef(null);
+      useSceneReveal(".reveal", ref);
+      const [expanded, setExpanded] = useState(null);
+
+      return (
+        <section className="skills" id="skills" ref={ref} aria-label="Skills">
+          <div className="skills-head">
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--orange)" }}>05 — Skills</div>
+            <h2 className="display reveal">Tools of<br />the Practice</h2>
+          </div>
+          <div className="skills-list">
+            {SKILLS_DATA.map((s, i) => (
+              <div
+                className={`skill-row reveal ${expanded === i ? 'expanded' : ''}`}
+                key={s.name}
+                data-hover
+                onClick={() => setExpanded(expanded === i ? null : i)}
+                role="button"
+                tabIndex={0}
+                aria-expanded={expanded === i}
+                onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setExpanded(expanded === i ? null : i); }}}
+              >
+                <span className="skill-idx mono">{String(i + 1).padStart(2, '0')}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display:'flex', alignItems:'baseline', gap:'clamp(16px,3vw,40px)' }}>
+                    <span className="skill-name">{s.name}</span>
+                    <span className="skill-tag">{s.tag}</span>
+                  </div>
+                  <div className="skill-details">
+                    <div className="skill-desc">{s.desc}</div>
+                    <span className={`skill-status ${s.status}`}>{s.status}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    /* ============================================================
+       AI AUTOMATION WORLD
+       ============================================================ */
+    function AIWorld() {
+      const ref = useRef(null);
+      useSceneReveal(".reveal", ref);
+
+      useEffect(() => {
+        const nodes = ref.current.querySelectorAll('.pipeline-node');
+        const dots = ref.current.querySelectorAll('.pipeline-dot');
+        nodes.forEach((el, i) => {
+          gsap.from(el.querySelector('.pipeline-box'), {
+            opacity: 0, x: i % 2 === 0 ? -30 : 30, duration: 0.8, ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 80%", toggleActions: "play none none reverse" }
+          });
+        });
+        dots.forEach((el) => {
+          gsap.from(el, {
+            scale: 0, duration: 0.5, ease: "back.out(1.7)",
+            scrollTrigger: { trigger: el, start: "top 80%", toggleActions: "play none none reverse" }
+          });
+        });
+      }, []);
+
+      return (
+        <section className="ai-world" id="ai-world" ref={ref} aria-label="AI Automation">
+          <div className="ai-world-head">
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--violet)" }}>07 — AI × Automation</div>
+            <h2 className="display reveal">The Machine<br />Behind the Screen</h2>
+          </div>
+          <div className="pipeline">
+            <div className="pipeline-flow" aria-hidden="true">
+              <div className="pipeline-particle"></div>
+            </div>
+            {PIPELINE_NODES.map((node, i) => (
+              <div className="pipeline-node" key={i}>
+                <div className="pipeline-dot"></div>
+                <div className="pipeline-box">
+                  <div className="pipeline-label mono" style={{ color: node.color }}>{node.label}</div>
+                  <div className="pipeline-name">{node.name}</div>
+                  <div className="pipeline-desc">{node.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    /* ============================================================
+       EXPERIMENTS LAB
+       ============================================================ */
+    function Experiments() {
+      const ref = useRef(null);
+      useSceneReveal(".reveal", ref);
+
+      return (
+        <section className="experiments" id="experiments" ref={ref} aria-label="Experiments">
+          <div className="experiments-head">
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--violet)" }}>08 — Lab</div>
+            <h2 className="display reveal">Experiments<br />& Playgrounds</h2>
+          </div>
+          <div className="experiments-grid">
+            {EXPERIMENTS.map((exp) => (
+              <div className="experiment-card reveal" key={exp.idx} data-hover>
+                <div className="experiment-idx mono">{exp.idx}</div>
+                <div className="experiment-title">{exp.title}</div>
+                <div className="experiment-desc">{exp.desc}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    /* ============================================================
+       NOW
+       ============================================================ */
+    function Now() {
+      const ref = useRef(null);
+      useSceneReveal(".reveal", ref);
+
+      const renderItems = (items) => items.map((item, i) => (
+        <div className="now-item" key={i}>
+          <span className="now-item-name">{item.name}</span>
+          <span className={`now-status ${item.status}`}>{item.status}</span>
+        </div>
+      ));
+
+      return (
+        <section className="now" id="now" ref={ref} aria-label="Now">
+          <div className="now-head">
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--orange)" }}>09 — Now</div>
+            <h2 className="display reveal">Right Now</h2>
+          </div>
+          <div className="now-grid">
+            <div className="now-column reveal">
+              <div className="now-label">Currently Learning</div>
+              {renderItems(NOW_LEARNING)}
+            </div>
+            <div className="now-column reveal">
+              <div className="now-label" style={{ color: '#22c55e' }}>Currently Building</div>
+              {renderItems(NOW_BUILDING)}
+            </div>
+            <div className="now-column reveal">
+              <div className="now-label" style={{ color: 'var(--violet)' }}>Currently Exploring</div>
+              {renderItems(NOW_EXPLORING)}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /* ============================================================
+       PHILOSOPHY
+       ============================================================ */
+    function Philosophy() {
+      const ref = useRef(null);
+      const wordsRef = useRef([]);
+      const statementsRef = useRef([]);
+
+      useEffect(() => {
+        const words = ['BUILD', 'BREAK', 'LEARN', 'REBUILD'];
+
+        /* Word rotation */
+        let idx = 0;
+        const interval = setInterval(() => {
+          wordsRef.current.forEach((el, i) => {
+            if (!el) return;
+            el.classList.toggle('active', i === idx % words.length);
+          });
+          idx++;
+        }, 1500);
+
+        /* Statement reveal */
+        statementsRef.current.forEach((el, i) => {
+          if (!el) return;
+          gsap.to(el, {
+            opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }
+          });
+        });
+
+        return () => clearInterval(interval);
+      }, []);
+
+      return (
+        <section className="philosophy" id="philosophy" ref={ref} aria-label="Philosophy">
+          <div className="philosophy-loop" aria-label="Build. Break. Learn. Rebuild.">
+            {['BUILD', 'BREAK', 'LEARN', 'REBUILD'].map((word, i) => (
+              <span
+                key={word}
+                className={`philosophy-word ${i === 0 ? 'active' : ''} ${i === 3 ? 'accent' : ''}`}
+                ref={el => wordsRef.current[i] = el}
+              >{word}</span>
+            ))}
+          </div>
+          <div className="philosophy-statements">
+            {MINDSET_LINES.map((line, i) => {
+              const parts = line.split(/(\b\w+\.)/);
+              return (
+                <p
+                  key={i}
+                  className="philosophy-statement"
+                  ref={el => statementsRef.current[i] = el}
+                  style={{ opacity: 0, transform: 'translateY(20px)' }}
+                >{parts.map((part, j) => part.match(/\w+\.$/) ? <em key={j}>{part}</em> : part)}</p>
+              );
+            })}
+          </div>
+        </section>
+      );
+    }
+
+    /* ============================================================
+       MINDSET
+       ============================================================ */
+    function Mindset() {
+      const ref = useRef(null);
+      useEffect(() => {
+        const lines = ref.current.querySelectorAll('.mindset-line');
+        lines.forEach((el, i) => {
+          gsap.to(el, {
+            opacity: 1, color: '#F5F5F5', duration: 0.6,
+            scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }
+          });
+        });
+      }, []);
+      return (
+        <section className="mindset" ref={ref} aria-label="Mindset">
+          <div className="mindset-grid">
+            {MINDSET_LINES.map((line, i) => (
+              <div key={i} className="mindset-line" style={{ opacity: 0.15 }}>{line}</div>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    /* ============================================================
+       FUTURE
+       ============================================================ */
+    function Future() {
+      const ref = useRef(null);
+      useSceneReveal(".reveal", ref);
+      return (
+        <section className="future" id="future" ref={ref} aria-label="Future">
+          <div className="future-head">
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--violet)" }}>10 — Future</div>
+            <h2 className="display reveal">What's<br />Next?</h2>
+          </div>
+          <div className="future-grid">
+            {FUTURE_ITEMS.map((item, i) => (
+              <div className="future-card reveal" key={i} data-hover>
+                <div className="future-badge">{item.badge}</div>
+                <div className="future-card-title">{item.title}</div>
+                <div className="future-card-desc">{item.desc}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    /* ============================================================
+       CONTACT
+       ============================================================ */
     function Contact() {
       const ref = useRef(null);
       useSceneReveal(".reveal", ref);
       return (
-        <section className="contact" id="contact" ref={ref}>
+        <section className="contact" id="contact" ref={ref} aria-label="Contact">
           <div className="contact-inner">
-            <div className="contact-eyebrow mono reveal">Scene Seven — Close</div>
+            <div className="contact-eyebrow mono reveal">11 — Contact</div>
             <h2 className="display reveal">
               Let's build<br />
               <Magnetic strength={0.3}>
-                <a href="mailto:hello@omarmohamed.dev" className="contact-link" data-hover>something considered ↗</a>
+                <a href="mailto:omarsaro2026@gmail.com" className="contact-link" data-hover>something unforgettable ↗</a>
               </Magnetic>
             </h2>
+
+            <div className="contact-cta reveal">
+              <Magnetic strength={0.3}>
+                <a href="mailto:omarsaro2026@gmail.com" className="cta-btn primary" data-hover>
+                  Start a Conversation
+                </a>
+              </Magnetic>
+              <Magnetic strength={0.3}>
+                <a href="https://github.com/omarsaro-dev" target="_blank" rel="noopener noreferrer" className="cta-btn" data-hover>
+                  View GitHub
+                </a>
+              </Magnetic>
+            </div>
 
             <div className="contact-meta reveal">
               <div className="contact-col">
                 <span className="mono" style={{ color: "var(--grey-dim)", fontSize: "10px" }}>Contact</span>
                 <a href="mailto:omarsaro2026@gmail.com" data-hover>omarsaro2026@gmail.com</a>
-                <a href="https://wa.me/201273494048" target="_blank" class="contact-email magnetic-btn" data-magnetic="0.2">
-                  +20 1273494048
-                </a>
+                <a href="https://wa.me/201273494048" target="_blank" rel="noopener noreferrer" data-hover>+20 1273494048</a>
               </div>
               <div className="contact-col">
                 <span className="mono" style={{ color: "var(--grey-dim)", fontSize: "10px" }}>Based In</span>
-                <a href="#" data-hover>Cairo, Egypt</a>
+                <span style={{ color: "var(--grey)", fontSize: "11px" }}>Cairo, Egypt</span>
               </div>
               <div className="contact-col">
                 <span className="mono" style={{ color: "var(--grey-dim)", fontSize: "10px" }}>Elsewhere</span>
-                <a href="https://www.linkedin.com/in/omar-saro-54381936a" target="_blank" data-hover>LinkedIn</a>
-                <a href="https://github.com/omarsaro-dev" target="_blank" data-hover>GitHub</a>
+                <a href="https://www.linkedin.com/in/omar-saro-54381936a" target="_blank" rel="noopener noreferrer" data-hover>LinkedIn</a>
+                <a href="https://github.com/omarsaro-dev" target="_blank" rel="noopener noreferrer" data-hover>GitHub</a>
               </div>
             </div>
           </div>
@@ -723,19 +1334,31 @@
       );
     }
 
+    /* ============================================================
+       FOOTER
+       ============================================================ */
     function Footer() {
       return (
-        <footer>
-          <span>© 2026 Omar Mohamed. All rights reserved.</span>
-          <span>Frontend Development — AI Automation</span>
+        <footer className="footer" role="contentinfo">
+          <div className="footer-left">
+            <span>© 2026 Omar Mohamed. All rights reserved.</span>
+            <span className="footer-built">Built with code, curiosity, and motion</span>
+          </div>
+          <div className="footer-right">
+            <span>Frontend Developer — AI Automation Enthusiast</span>
+          </div>
         </footer>
       );
     }
 
+    /* ============================================================
+       APP
+       ============================================================ */
     function App() {
-
       const [active, setActive] = useState("hero");
+      const [loaded, setLoaded] = useState(false);
       useSmoothScrollAndIntro();
+      useWebGL();
 
       useEffect(() => {
         SCENES.forEach(s => {
@@ -749,12 +1372,14 @@
         });
         const t = setTimeout(() => ScrollTrigger.refresh(), 500);
         return () => clearTimeout(t);
-      }, []);
+      }, [loaded]);
 
       return (
         <React.Fragment>
-          <Curtain />
+          {!loaded && <Loader onComplete={() => setLoaded(true)} />}
+          {loaded && <Curtain />}
           <Grain />
+          <Vignette />
           <CustomCursor />
           <Nav />
           <Rail active={active} />
@@ -763,9 +1388,15 @@
               <Hero />
               <Manifesto />
               <About />
+              <Journey />
               <Work />
               <Skills />
-              <Timeline />
+              <AIWorld />
+              <Experiments />
+              <Now />
+              <Philosophy />
+              <Mindset />
+              <Future />
               <Contact />
               <Footer />
             </div>
@@ -776,9 +1407,6 @@
 
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
-
   </script>
-
 </body>
-
 </html>
