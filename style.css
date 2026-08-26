@@ -26,7 +26,7 @@
 
 /* ---------- RESET ---------- */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { background: var(--black); scroll-behavior: auto; }
+html { background: var(--black); scroll-behavior: auto; overflow-x: hidden; }
 ::selection { background: var(--orange); color: var(--black); }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
@@ -383,8 +383,13 @@ section { position: relative; }
     inset: auto;
     min-height: 120px;
     padding: 40px 0;
-    opacity: 1 !important;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
     pointer-events: auto;
+  }
+  .mind-statement.mind-visible {
+    opacity: 1 !important;
     transform: none !important;
   }
   .mind-statement-text {
@@ -1001,6 +1006,7 @@ section { position: relative; }
   .hero-cta-row { opacity: 1 !important; }
   .personality-keyword { opacity: 1 !important; }
   .diagram-node { opacity: 1 !important; }
+  .diagram-arrow { opacity: 1 !important; }
   .service-status { opacity: 1 !important; }
   .evolution-line { transform: scaleY(1) !important; }
   #webgl-canvas { display: none !important; }

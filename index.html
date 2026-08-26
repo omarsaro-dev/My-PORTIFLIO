@@ -878,17 +878,11 @@
           const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => {
               if (e.isIntersecting) {
-                e.target.style.opacity = '1';
-                e.target.style.transform = 'translateY(0)';
+                e.target.classList.add('mind-visible');
               }
             });
-          }, { threshold: 0.3 });
-          statements.forEach(s => {
-            s.style.opacity = '0';
-            s.style.transform = 'translateY(30px)';
-            s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            observer.observe(s);
-          });
+          }, { threshold: 0.2 });
+          statements.forEach(s => observer.observe(s));
           return () => observer.disconnect();
         } else {
           const totalHeight = (statements.length - 1) * window.innerHeight;
@@ -932,6 +926,7 @@
       useEffect(() => {
         if (window.innerWidth < 860) return;
         const nodes = ref.current.querySelectorAll('.evo-node');
+        gsap.set(nodes, { opacity: 0, y: 30 });
         nodes.forEach((el, i) => {
           gsap.to(el, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: i * 0.06,
             scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }
@@ -953,7 +948,7 @@
           <div className="evolution-stream" ref={ref}>
             <div className="evolution-line" ref={lineRef}></div>
             {EVOLUTION.map((j, i) => (
-              <div className="evo-node reveal" key={i} style={{ opacity: 0, transform: 'translateY(30px)' }}>
+              <div className="evo-node reveal" key={i}>
                 <div className="evo-dot-wrap"><div className="evo-dot"></div></div>
                 <div>
                   <div className="evo-idx mono">{j.idx}</div>
@@ -1053,6 +1048,8 @@
         if (diagRef.current) {
           const nodes = diagRef.current.querySelectorAll('.diagram-node');
           const arrows = diagRef.current.querySelectorAll('.diagram-arrow');
+          gsap.set(nodes, { opacity: 0, y: 10 });
+          gsap.set(arrows, { opacity: 0 });
           gsap.to(nodes, { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: "power3.out",
             scrollTrigger: { trigger: diagRef.current, start: "top 80%", toggleActions: "play none none reverse" }
           });
@@ -1126,11 +1123,11 @@
                   <div className="diagram-flow">
                     {data.diagram.map((node, i) => (
                       <React.Fragment key={i}>
-                        <div className={`diagram-node ${node.highlight ? 'highlight' : ''}`} style={{ opacity: 0, transform: 'translateY(10px)' }}>
+                        <div className={`diagram-node ${node.highlight ? 'highlight' : ''}`}>
                           <div style={{ fontSize:'9px', color:'var(--grey-dim)', marginBottom:'2px', fontFamily:'var(--font-mono)', letterSpacing:'0.12em' }}>{node.label}</div>
                           <div>{node.desc}</div>
                         </div>
-                        {i < data.diagram.length - 1 && <div className="diagram-arrow" style={{ opacity: 0 }}>↓</div>}
+                        {i < data.diagram.length - 1 && <div className="diagram-arrow">↓</div>}
                       </React.Fragment>
                     ))}
                   </div>
@@ -1728,6 +1725,7 @@
 
       useEffect(() => {
         if (!loaded) return;
+        if (window.innerWidth < 860) return;
         CHAPTERS.forEach(ch => {
           const el = document.getElementById(ch.id);
           if (!el) return;
