@@ -816,6 +816,7 @@ section { position: relative; }
 }
 .exit-link:hover { color: var(--orange); border-color: var(--orange); }
 .exit-cta { margin-top: 48px; display: flex; gap: 16px; flex-wrap: wrap; }
+.exit-cta.reveal, .exit-meta.reveal, .exit-subtext.reveal { opacity: 1 !important; transform: none !important; }
 .cta-btn {
   display: inline-flex; align-items: center; gap: 10px;
   padding: 14px 32px; border-radius: 100px;
