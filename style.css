@@ -6,22 +6,22 @@
 /* ---------- DESIGN TOKENS ---------- */
 :root {
   --black: #050505;
-  --black-elevated: #0A0A0C;
-  --black-surface: #0E0F12;
-  --white: #F2F0EA;
+  --black-elevated: #0A0908;
+  --black-surface: #11100E;
+  --white: #F3EEE4;
   --white-pure: #FFFFFF;
-  --grey: #A5A5A8;
-  --grey-dim: #6F7075;
+  --grey: #B7B0A4;
+  --grey-dim: #777168;
   --grey-deep: #333338;
-  --primary: #6C7CFF;
-  --primary-bright: #8895FF;
-  --primary-dim: rgba(108,124,255,0.15);
-  --secondary: #9A7BFF;
-  --secondary-dim: rgba(154,123,255,0.15);
-  --glow: rgba(108,124,255,0.20);
-  --line: rgba(255,255,255,0.10);
-  --line-strong: rgba(255,255,255,0.16);
-  --line-hover: rgba(108,124,255,0.35);
+  --primary: #C6A46A;
+  --primary-bright: #D8BB85;
+  --primary-dim: rgba(198,164,106,0.15);
+  --secondary: #947747;
+  --secondary-dim: rgba(148,119,71,0.12);
+  --glow: rgba(198,164,106,0.16);
+  --line: rgba(243,238,228,0.10);
+  --line-strong: rgba(243,238,228,0.16);
+  --line-hover: rgba(198,164,106,0.35);
   --font-display: 'Bebas Neue', sans-serif;
   --font-body: 'Manrope', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
@@ -187,7 +187,7 @@ body.smooth-active #smooth-wrapper { position: fixed; inset: 0; overflow: hidden
   background: var(--grey-deep); transition: all 0.5s ease;
 }
 .rail-item.active .rail-dot {
-  background: var(--primary); box-shadow: 0 0 8px 2px rgba(108,124,255,0.5);
+  background: var(--primary); box-shadow: 0 0 8px 2px rgba(198,164,106,0.5);
   width: 7px; height: 7px;
 }
 @media (max-width: 860px) { .rail { display: none; } }
@@ -208,7 +208,7 @@ body.smooth-active #smooth-wrapper { position: fixed; inset: 0; overflow: hidden
   position: fixed; width: 300px; height: 300px; border-radius: 50%;
   top: 0; left: 0; margin-left: -150px; margin-top: -150px;
   pointer-events: none; z-index: 9997;
-  background: radial-gradient(circle, rgba(108,124,255,0.07), transparent 70%);
+  background: radial-gradient(circle, rgba(198,164,106,0.07), transparent 70%);
   filter: blur(8px); will-change: transform;
 }
 .cursor-dot {
@@ -216,7 +216,7 @@ body.smooth-active #smooth-wrapper { position: fixed; inset: 0; overflow: hidden
   background: var(--primary); border-radius: 50%;
   top: 0; left: 0; margin-left: -4px; margin-top: -4px;
   pointer-events: none; z-index: 9999;
-  box-shadow: 0 0 12px 2px rgba(108,124,255,0.7);
+  box-shadow: 0 0 12px 2px rgba(198,164,106,0.7);
   transition: width 0.3s ease, height 0.3s ease, margin 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
   will-change: transform;
 }
@@ -231,10 +231,10 @@ body.smooth-active #smooth-wrapper { position: fixed; inset: 0; overflow: hidden
 }
 .cursor-ring.hover {
   width: 100px; height: 100px; margin-left: -50px; margin-top: -50px;
-  border-color: var(--secondary); background: rgba(154,123,255,0.06);
+  border-color: var(--secondary); background: rgba(148,119,71,0.06);
 }
 .cursor-ring.hover ~ .cursor-dot {
-  background: var(--secondary); box-shadow: 0 0 16px 4px rgba(154,123,255,0.7);
+  background: var(--secondary); box-shadow: 0 0 16px 4px rgba(148,119,71,0.7);
 }
 @media (max-width: 860px) { .cursor-dot, .cursor-ring, .cursor-glow { display: none; } }
 
@@ -278,8 +278,8 @@ section { position: relative; }
 .hero-glowbeam {
   position: absolute; inset: 0; z-index: 1; opacity: 0.55;
   background:
-    radial-gradient(ellipse 60% 40% at 30% 0%, rgba(154,123,255,0.16), transparent 60%),
-    radial-gradient(ellipse 50% 35% at 80% 10%, rgba(108,124,255,0.10), transparent 60%);
+    radial-gradient(ellipse 60% 40% at 30% 0%, rgba(148,119,71,0.16), transparent 60%),
+    radial-gradient(ellipse 50% 35% at 80% 10%, rgba(198,164,106,0.10), transparent 60%);
 }
 .hero-vignette {
   position: absolute; inset: 0; z-index: 4;
@@ -433,7 +433,7 @@ section { position: relative; }
 }
 .evo-node.active .evo-dot {
   border-color: var(--primary); background: var(--primary);
-  box-shadow: 0 0 14px 2px rgba(108,124,255,0.5);
+  box-shadow: 0 0 14px 2px rgba(198,164,106,0.5);
 }
 .evo-idx { font-family: var(--font-mono); font-size: 10px; color: var(--grey-dim); margin-bottom: 6px; letter-spacing: 0.12em; }
 .evo-title {
@@ -475,7 +475,7 @@ section { position: relative; }
   transition: all 0.4s ease;
 }
 .skill-node:hover .skill-node-dot {
-  background: var(--primary); box-shadow: 0 0 16px 3px rgba(108,124,255,0.6);
+  background: var(--primary); box-shadow: 0 0 16px 3px rgba(198,164,106,0.6);
   width: 14px; height: 14px;
 }
 .skill-node-name {
@@ -623,16 +623,16 @@ section { position: relative; }
 
 /* World bg patterns */
 .w1 .world-bg-inner {
-  background: repeating-linear-gradient(115deg, rgba(108,124,255,0.07) 0 1px, transparent 1px 60px),
-    radial-gradient(circle at 80% 20%, rgba(108,124,255,0.16), transparent 55%);
+  background: repeating-linear-gradient(115deg, rgba(198,164,106,0.07) 0 1px, transparent 1px 60px),
+    radial-gradient(circle at 80% 20%, rgba(198,164,106,0.16), transparent 55%);
 }
 .w2 .world-bg-inner {
-  background: radial-gradient(circle at 15% 30%, rgba(154,123,255,0.18), transparent 55%),
-    linear-gradient(180deg, transparent 60%, rgba(154,123,255,0.05));
+  background: radial-gradient(circle at 15% 30%, rgba(148,119,71,0.18), transparent 55%),
+    linear-gradient(180deg, transparent 60%, rgba(148,119,71,0.05));
 }
 .w3 .world-bg-inner {
-  background: radial-gradient(circle at 50% 0%, rgba(108,124,255,0.10), transparent 50%),
-    radial-gradient(circle at 100% 100%, rgba(154,123,255,0.12), transparent 55%);
+  background: radial-gradient(circle at 50% 0%, rgba(198,164,106,0.10), transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(148,119,71,0.12), transparent 55%);
 }
 
 /* ================================================================
@@ -641,7 +641,7 @@ section { position: relative; }
 .machine {
   padding: clamp(80px, 12vh, 140px) clamp(20px, 5vw, 64px);
   border-top: 1px solid var(--line); position: relative; overflow: hidden;
-  background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(154,123,255,0.03), transparent 70%);
+  background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(148,119,71,0.03), transparent 70%);
 }
 .machine-head { max-width: 1320px; margin: 0 auto 60px; }
 .machine-head h2 { font-size: clamp(36px, 6vw, 84px); max-width: 800px; }
@@ -677,9 +677,9 @@ section { position: relative; }
   position: absolute; left: 50%; transform: translateX(-50%);
   width: 10px; height: 10px; border-radius: 50%;
   background: var(--secondary); border: 2px solid var(--black); z-index: 2;
-  box-shadow: 0 0 12px rgba(154,123,255,0.5);
+  box-shadow: 0 0 12px rgba(148,119,71,0.5);
 }
-.pipeline-node.active .pipeline-dot { background: var(--primary); box-shadow: 0 0 14px rgba(108,124,255,0.6); }
+.pipeline-node.active .pipeline-dot { background: var(--primary); box-shadow: 0 0 14px rgba(198,164,106,0.6); }
 .pipeline-flow {
   position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
   transform: translateX(-50%); overflow: hidden;
@@ -740,7 +740,7 @@ section { position: relative; }
 .now {
   padding: clamp(80px, 12vh, 140px) clamp(20px, 5vw, 64px);
   border-top: 1px solid var(--line);
-  background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(108,124,255,0.025), transparent 60%);
+  background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(198,164,106,0.025), transparent 60%);
 }
 .now-head { max-width: 1320px; margin: 0 auto 60px; }
 .now-head h2 { font-size: clamp(36px, 6vw, 84px); }
@@ -806,7 +806,7 @@ section { position: relative; }
   min-height: 85svh; display: flex; flex-direction: column; justify-content: center;
   padding: clamp(80px, 14vh, 160px) clamp(20px, 5vw, 64px) 40px;
   border-top: 1px solid var(--line); position: relative;
-  background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(108,124,255,0.06), transparent 60%);
+  background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(198,164,106,0.06), transparent 60%);
 }
 .exit-inner { max-width: 1320px; margin: 0 auto; width: 100%; }
 .exit-eyebrow { font-size: 11px; color: var(--secondary); margin-bottom: 24px; }
@@ -1151,7 +1151,7 @@ a:focus-visible, button:focus-visible {
 .proof {
   padding: clamp(80px, 12vh, 140px) clamp(20px, 5vw, 64px);
   border-top: 1px solid var(--line);
-  background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(154,123,255,0.025), transparent 60%);
+  background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(148,119,71,0.025), transparent 60%);
 }
 .proof-head { max-width: 1320px; margin: 0 auto 60px; }
 .proof-head h2 { font-size: clamp(36px, 6vw, 84px); }

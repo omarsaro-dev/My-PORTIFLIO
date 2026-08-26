@@ -347,19 +347,19 @@
           vel[i3] = (Math.random()-0.5)*0.2; vel[i3+1] = (Math.random()-0.5)*0.2; vel[i3+2] = (Math.random()-0.5)*0.2;
         }
         geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-        const mat = new THREE.PointsMaterial({ color: 0x6C7CFF, size: isMobile ? 1.6 : 1.0, transparent: true, opacity: 0.35, sizeAttenuation: true });
+        const mat = new THREE.PointsMaterial({ color: 0xF3EEE4, size: isMobile ? 1.6 : 1.0, transparent: true, opacity: 0.25, sizeAttenuation: true });
         particles = new THREE.Points(geo, mat);
         scene.add(particles);
 
         /* Central icosahedron */
         const icoGeo = new THREE.IcosahedronGeometry(isMobile ? 35 : 55, 1);
-        const icoMat = new THREE.MeshBasicMaterial({ color: 0x6C7CFF, wireframe: true, transparent: true, opacity: 0.12 });
+        const icoMat = new THREE.MeshBasicMaterial({ color: 0xC6A46A, wireframe: true, transparent: true, opacity: 0.08 });
         ico = new THREE.Mesh(icoGeo, icoMat);
         scene.add(ico);
 
         /* Ring */
         const ringGeo = new THREE.TorusGeometry(isMobile ? 50 : 75, 0.4, 8, 80);
-        const ringMat = new THREE.MeshBasicMaterial({ color: 0x8b5cf6, transparent: true, opacity: 0.06 });
+        const ringMat = new THREE.MeshBasicMaterial({ color: 0xC6A46A, transparent: true, opacity: 0.04 });
         ring = new THREE.Mesh(ringGeo, ringMat);
         ring.rotation.x = Math.PI * 0.35;
         scene.add(ring);
@@ -369,7 +369,7 @@
         const lineGeo = new THREE.BufferGeometry();
         const linePos = new Float32Array(lineCount * 6);
         lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
-        const lineMat = new THREE.LineBasicMaterial({ color: 0x6C7CFF, transparent: true, opacity: 0.06 });
+        const lineMat = new THREE.LineBasicMaterial({ color: 0xF3EEE4, transparent: true, opacity: 0.04 });
         lines = new THREE.LineSegments(lineGeo, lineMat);
         scene.add(lines);
 
@@ -1394,7 +1394,7 @@
       return (
         <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Omar Mohamed logo">
           <rect width="64" height="64" rx="12" fill="#050505"/>
-          <text x="32" y="44" textAnchor="middle" fontFamily="Arial, Helvetica, sans-serif" fontWeight="700" fontSize="30" fill="#6C7CFF" letterSpacing="2">OM</text>
+          <text x="32" y="44" textAnchor="middle" fontFamily="Arial, Helvetica, sans-serif" fontWeight="700" fontSize="30" fill="#C6A46A" letterSpacing="2">OM</text>
         </svg>
       );
     }
