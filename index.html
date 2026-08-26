@@ -162,8 +162,10 @@
         tools: ["n8n", "Google Sheets API", "Webhooks", "Arabic RTL UI", "Automation Logic"],
         images: ["./assets/1.png"],
         role: "Automation · Full System",
-        status: "LIVE",
+        status: "PRIVATE",
+        statusNote: "Demo available on request",
         links: { demo: null, github: null, casestudy: "01" },
+        evidence: { type: "screenshot", label: "System Workflow — Conceptual Architecture" },
         diagram: [
           { label: "USER", desc: "Client sends a product query", highlight: true },
           { label: "CHAT", desc: "AI processes natural language", highlight: false },
@@ -184,8 +186,10 @@
           "./assets/mousaa7.png", "./assets/mousaa8.png", "./assets/mousaa9.png"
         ],
         role: "Frontend · Design · Development",
-        status: "LIVE",
+        status: "CONCEPT",
+        statusNote: "Demo available on request",
         links: { demo: null, github: null, casestudy: "02" },
+        evidence: { type: "gallery", label: "Project Gallery — Real Screenshots" },
       },
       {
         idx: "03", cls: "w3", tag: "Brand · Portfolio · Creative Dev", tagCls: "orange",
@@ -195,7 +199,9 @@
         images: ["./assets/omar.png"],
         role: "Concept · Design · Development",
         status: "LIVE",
+        statusNote: null,
         links: { demo: "https://omarmohamed.dev", github: "https://github.com/omarsaro-dev", casestudy: "03" },
+        evidence: { type: "live", label: "You are inside this project right now" },
       },
     ];
 
@@ -642,16 +648,20 @@
        ================================================================ */
     function Stat({ target, suffix = "", label }) {
       const numRef = useRef(null);
+      const [revealed, setRevealed] = useState(false);
       useEffect(() => {
         const obj = { val: 0 };
         gsap.to(obj, { val: target, duration: 1.6, ease: "power2.out",
           scrollTrigger: { trigger: numRef.current, start: "top 88%", toggleActions: "play none none reverse" },
+          onStart: () => setRevealed(true),
           onUpdate: () => { numRef.current.textContent = Math.round(obj.val); }
         });
       }, [target]);
       return (
         <div>
-          <div className="metric-num"><span ref={numRef}>0</span>{suffix}</div>
+          <div className="metric-num">
+            <span ref={numRef}>{revealed ? target : '—'}</span>{suffix}
+          </div>
           <div className="metric-label mono">{label}</div>
         </div>
       );
@@ -660,10 +670,11 @@
     /* ================================================================
        CHAPTER 01 / ENTRY — HERO
        ================================================================ */
-    function Hero() {
+    function Hero({ lang }) {
       const heroRef = useRef(null);
       const imgwrapRef = useRef(null);
       const spotlightRef = useRef(null);
+      const t = LANG[lang];
 
       useEffect(() => {
         const tl = gsap.timeline({ defaults: { ease: "power4.out" }, delay: 1.35 });
@@ -701,27 +712,27 @@
           </div>
           <div className="hero-vignette"></div>
           <div className="hero-content">
-            <div className="hero-eyebrow mono">Frontend Developer — AI Automation</div>
+            <div className="hero-eyebrow mono">{t.heroEyebrow}</div>
             <h1 className="hero-name display">
               <SplitWord text="OMAR" />
               <SplitWord text="MOHAMED" outline />
             </h1>
             <div className="hero-foot">
               <div className="hero-text-group">
-                <p className="hero-role">I don't just write code. <b>I design digital experiences</b> — and teach systems to run them.</p>
+                <p className="hero-role">{t.heroRole1} <b>{t.heroRole2}</b> {t.heroRole3}</p>
                 <div className="hero-availability mono">
                   <span className="availability-dot"></span>
-                  OPEN TO SELECT PROJECTS AND CREATIVE COLLABORATIONS
+                  {t.availability}
                 </div>
                 <div className="hero-cta-row">
                   <Magnetic strength={0.3}>
                     <button className="cta-btn primary" onClick={() => { const el = document.getElementById('worlds'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }} data-hover>
-                      <Icon name="arrowDown" size={14} /> VIEW MY WORK
+                      <Icon name="arrowDown" size={14} /> {t.viewWork}
                     </button>
                   </Magnetic>
                   <Magnetic strength={0.3}>
                     <a href="mailto:omarsaro2026@gmail.com" className="cta-btn" data-hover>
-                      START A PROJECT <Icon name="arrow" size={14} />
+                      {t.startProject} <Icon name="arrow" size={14} />
                     </a>
                   </Magnetic>
                 </div>
@@ -1001,20 +1012,21 @@
               <div className="world-trust reveal">
                 {data.role && <span className="world-trust-item mono"><span className="trust-label">Role</span> {data.role}</span>}
                 {data.status && <span className={"world-trust-item mono status-" + data.status.toLowerCase()}><span className="trust-label">Status</span> {data.status}</span>}
+                {data.statusNote && <span className="world-trust-note mono">{data.statusNote}</span>}
               </div>
               <div className="world-tools reveal">{data.tools.map(t => <span key={t}>{t}</span>)}</div>
               <div className="world-actions reveal">
                 {data.links && data.links.demo && (
                   <Magnetic strength={0.3}>
                     <a href={data.links.demo} target="_blank" rel="noopener noreferrer" className="cta-btn primary" data-hover>
-                      <Icon name="external" size={14} /> LIVE DEMO
+                      <Icon name="external" size={14} /> LIVE DEMO <Icon name="external" size={10} />
                     </a>
                   </Magnetic>
                 )}
                 {data.links && data.links.github && (
                   <Magnetic strength={0.3}>
                     <a href={data.links.github} target="_blank" rel="noopener noreferrer" className="cta-btn" data-hover>
-                      <Icon name="github" size={14} /> GITHUB
+                      <Icon name="github" size={14} /> GITHUB <Icon name="external" size={10} />
                     </a>
                   </Magnetic>
                 )}
@@ -1025,13 +1037,14 @@
                     </button>
                   </Magnetic>
                 )}
-                {!data.links.demo && !data.links.github && !data.links.casestudy && (
-                  <span className="world-action-pending mono">LINK TO BE ADDED</span>
+                {!data.links.demo && !data.links.github && (
+                  <span className="world-action-pending mono">DEMO AVAILABLE ON REQUEST</span>
                 )}
               </div>
               <div className="world-gallery" ref={frameRef}>
+                {data.evidence && <div className="world-evidence-label mono">{data.evidence.label}</div>}
                 {data.images.map((img, idx) => (
-                  <img key={idx} src={img} alt={data.title.join(" ")} loading="lazy" />
+                  <img key={idx} src={img} alt={data.title.join(" ") + " — screenshot " + (idx + 1)} loading="lazy" width="600" height="350" />
                 ))}
               </div>
               {data.diagram && (
@@ -1292,29 +1305,75 @@
     }
 
     /* ================================================================
+       LANGUAGE SYSTEM
+       ================================================================ */
+    const LANG = {
+      en: {
+        heroEyebrow: "Frontend Developer — AI Automation",
+        heroRole1: "I don't just write code.",
+        heroRole2: "I design digital experiences",
+        heroRole3: "— and teach systems to run them.",
+        availability: "OPEN TO SELECT PROJECTS AND CREATIVE COLLABORATIONS",
+        viewWork: "VIEW MY WORK",
+        startProject: "START A PROJECT",
+        contact: "CONTACT",
+        work: "WORK",
+        services: "SERVICES",
+        about: "ABOUT",
+        caseStudy: "CASE STUDY",
+        liveDemo: "LIVE DEMO",
+        github: "GITHUB",
+        demoOnRequest: "DEMO AVAILABLE ON REQUEST",
+        nextProject: "Next Project",
+        backToWork: "Back to Work",
+        langToggle: "عربي",
+      },
+      ar: {
+        heroEyebrow: "مطور واجهات أمامية — أتمتة بالذكاء الاصطناعي",
+        heroRole1: "أنا لا أكتب برمجيات فحسب.",
+        heroRole2: "أصمم تجارب رقمية",
+        heroRole3: "— وأُعلّم الأنظمة كيف تعمل.",
+        availability: "متاح لمشاريع محددة وتعاونات إبداعية",
+        viewWork: "شاهد أعمالي",
+        startProject: "ابدأ مشروعًا",
+        contact: "تواصل",
+        work: "أعمالي",
+        services: "الخدمات",
+        about: "عني",
+        caseStudy: "دراسة الحالة",
+        liveDemo: "عرض مباشر",
+        github: "جيتهب",
+        demoOnRequest: "العرض متاح عند الطلب",
+        nextProject: "المشروع التالي",
+        backToWork: "العودة للأعمال",
+        langToggle: "EN",
+      },
+    };
+
+    /* ================================================================
        QUICK ACCESS FLOATING NAV
        ================================================================ */
-    function QuickAccess() {
+    function QuickAccess({ lang, active }) {
       const [visible, setVisible] = useState(false);
       useEffect(() => {
         const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.6);
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
       }, []);
+      const t = LANG[lang];
       const jumpTo = (id) => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       };
       const items = [
-        { label: "Work", id: "worlds" },
-        { label: "Services", id: "services" },
-        { label: "About", id: "about" },
-        { label: "Contact", id: "exit" },
+        { label: t.work, id: "worlds", activeId: "worlds" },
+        { label: t.services, id: "services", activeId: "services" },
+        { label: t.contact, id: "exit", activeId: "exit" },
       ];
       return (
         <nav className={`quick-access ${visible ? 'visible' : ''}`} aria-label="Quick navigation">
           {items.map(item => (
-            <button key={item.id} className="quick-access-item mono" onClick={() => jumpTo(item.id)} data-hover>{item.label}</button>
+            <button key={item.id} className={"quick-access-item mono" + (active === item.activeId ? " active" : "")} onClick={() => jumpTo(item.id)} data-hover>{item.label}</button>
           ))}
         </nav>
       );
@@ -1323,7 +1382,7 @@
     /* ================================================================
        STICKY EXPLORE CTA
        ================================================================ */
-    function ExploreWork() {
+    function ExploreWork({ lang }) {
       const [visible, setVisible] = useState(false);
       useEffect(() => {
         const onScroll = () => {
@@ -1336,14 +1395,14 @@
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
       }, []);
+      const t = LANG[lang];
       const jump = () => {
         const el = document.getElementById('worlds');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       };
       return (
         <button className={`explore-work mono ${visible ? 'visible' : ''}`} onClick={jump} data-hover aria-label="Explore my work">
-          <span>EXPLORE WORK</span>
-          <Icon name="arrowDown" size={14} />
+          <span>{t.work} ↓</span>
         </button>
       );
     }
@@ -1431,11 +1490,12 @@
     /* ================================================================
        CASE STUDY VIEWER
        ================================================================ */
-    function CaseStudyViewer({ id, onClose }) {
+    function CaseStudyViewer({ id, onClose, lang }) {
       const data = CASE_STUDIES[id];
       const world = WORLDS.find(w => w.links && w.links.casestudy === id);
       const nextId = id === "03" ? "01" : String(Number(id) + 1).padStart(2, '0');
       const nextWorld = WORLDS.find(w => w.links && w.links.casestudy === nextId);
+      const t = LANG[lang];
 
       useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -1484,12 +1544,12 @@
               ))}
             </div>
             <div className="case-study-footer">
-              <button className="cta-btn" onClick={onClose} data-hover><Icon name="arrow" size={14} /> Back to Work</button>
+              <button className="cta-btn" onClick={onClose} data-hover><Icon name="arrow" size={14} /> {t.backToWork}</button>
               {nextWorld && (
                 <button className="cta-btn" onClick={() => { onClose(); setTimeout(() => {
                   const el = document.getElementById('worlds');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }, 300); }} data-hover>Next Project <Icon name="chevronRight" size={14} /></button>
+                }, 300); }} data-hover>{t.nextProject} <Icon name="chevronRight" size={14} /></button>
               )}
             </div>
           </div>
@@ -1549,6 +1609,17 @@
     }
 
     /* ================================================================
+       LANGUAGE TOGGLE
+       ================================================================ */
+    function LangToggle({ lang, setLang }) {
+      return (
+        <button className="lang-toggle" onClick={() => setLang(lang === 'en' ? 'ar' : 'en')} data-hover aria-label="Switch language">
+          {lang === 'en' ? 'عربي' : 'EN'}
+        </button>
+      );
+    }
+
+    /* ================================================================
        APP
        ================================================================ */
     function App() {
@@ -1556,7 +1627,16 @@
       const [loaded, setLoaded] = useState(false);
       const [scrollProgress, setScrollProgress] = useState(0);
       const [caseStudyId, setCaseStudyId] = useState(null);
+      const [lang, setLang] = useState(() => {
+        try { return localStorage.getItem('om-lang') || 'en'; } catch(e) { return 'en'; }
+      });
       useSmoothScroll();
+
+      useEffect(() => {
+        try { localStorage.setItem('om-lang', lang); } catch(e) {}
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.documentElement.lang = lang;
+      }, [lang]);
 
       useEffect(() => {
         initWebGL();
@@ -1589,13 +1669,14 @@
           <Vignette />
           <CustomCursor />
           <Navigation active={active} />
+          <LangToggle lang={lang} setLang={setLang} />
           <Rail active={active} />
           <ChapterProgress progress={scrollProgress} />
-          <QuickAccess />
-          <ExploreWork />
+          <QuickAccess lang={lang} active={active} />
+          <ExploreWork lang={lang} />
           <div id="smooth-wrapper">
             <div id="smooth-content">
-              <Hero />
+              <Hero lang={lang} />
               <Manifesto />
               <About />
               <Services />
@@ -1612,7 +1693,7 @@
               <Footer />
             </div>
           </div>
-          {caseStudyId && <CaseStudyViewer id={caseStudyId} onClose={() => setCaseStudyId(null)} />}
+          {caseStudyId && <CaseStudyViewer id={caseStudyId} onClose={() => setCaseStudyId(null)} lang={lang} />}
           <DevMode />
         </React.Fragment>
       );
