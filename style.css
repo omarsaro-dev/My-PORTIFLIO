@@ -243,7 +243,7 @@ body.smooth-active #smooth-wrapper { position: fixed; inset: 0; overflow: hidden
 }
 
 /* ---------- REVEAL UTILITY ---------- */
-.reveal { opacity: 0; transform: translateY(36px); }
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.9s ease, transform 0.9s ease; }
 
 section { position: relative; }
 
