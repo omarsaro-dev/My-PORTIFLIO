@@ -161,7 +161,9 @@
         title: ["AI Paint", "Assistant"],
         body: "An AI-powered automation assistant for querying paint product prices. n8n orchestrates the logic, Google Sheets holds the source of truth, and the interface delivers answers instantly.",
         tools: ["n8n", "Google Sheets API", "Webhooks", "Arabic RTL UI", "Automation Logic"],
-        images: ["./assets/1.png"],
+        images: [
+          { src: "./assets/1.png", type: "screenshot", caption: "System Workflow", featured: true },
+        ],
         role: "Automation · Full System",
         status: "PRIVATE",
         statusNote: "Demo available on request",
@@ -182,9 +184,12 @@
         body: "A high-end showcase built for an interior design studio. Cinematic visuals, immersive storytelling, and a visual language that matches the precision of the work being presented.",
         tools: ["HTML", "CSS", "JavaScript", "GSAP", "Luxury UI"],
         images: [
-          "./assets/mousa1.png", "./assets/mousaa2.png", "./assets/mousaa3.png",
-          "./assets/mousaa4.png", "./assets/mousaa5.png", "./assets/mousaa6.png",
-          "./assets/mousaa7.png", "./assets/mousaa8.png", "./assets/mousaa9.png"
+          { src: "./assets/mousa1.png", type: "screenshot", caption: "Homepage", featured: true },
+          { src: "./assets/mousaa3.png", type: "screenshot", caption: "Project Gallery" },
+          { src: "./assets/mousaa4.png", type: "screenshot", caption: "Interior Project Page" },
+          { src: "./assets/mousaa5.png", type: "screenshot", caption: "Wide Visual Composition" },
+          { src: "./assets/mousaa8.png", type: "screenshot", caption: "Mobile Layout" },
+          { src: "./assets/mousaa9.png", type: "screenshot", caption: "Detail View" },
         ],
         role: "Frontend · Design · Development",
         status: "CONCEPT",
@@ -197,7 +202,9 @@
         title: ["Digital", "Universe"],
         body: "The experience you are inside right now. One continuous cinematic sequence built to hold both sides of the practice — the craft of the interface and the systems running underneath it.",
         tools: ["React", "GSAP", "ScrollTrigger", "Three.js", "WebGL", "Motion"],
-        images: ["./assets/image.png"],
+        images: [
+          { src: "./assets/image.png", type: "screenshot", caption: "Immersive Portfolio Experience", featured: true },
+        ],
         role: "Concept · Design · Development",
         status: "LIVE",
         statusNote: null,
@@ -1078,9 +1085,20 @@
               </div>
               <div className="world-gallery" ref={frameRef}>
                 {data.evidence && <div className="world-evidence-label mono">{data.evidence.label}</div>}
-                {data.images.map((img, idx) => (
-                  <img key={idx} src={img} alt={data.title.join(" ") + " — screenshot " + (idx + 1)} loading="lazy" width="600" height="350" />
-                ))}
+                {data.images.map((img, idx) => {
+                  const src = typeof img === 'string' ? img : img.src;
+                  const caption = typeof img === 'object' ? img.caption : null;
+                  const featured = typeof img === 'object' && img.featured;
+                  const alt = typeof img === 'object' && img.caption
+                    ? data.title.join(" ") + " — " + img.caption
+                    : data.title.join(" ") + " — screenshot " + (idx + 1);
+                  return (
+                    <div key={idx} className={"gallery-item" + (featured ? " featured" : "")}>
+                      <img src={src} alt={alt} loading={idx === 0 ? "eager" : "lazy"} />
+                      {caption && <div className="gallery-caption">{caption}</div>}
+                    </div>
+                  );
+                })}
               </div>
               {data.diagram && (
                 <div className="system-diagram" ref={diagRef}>
