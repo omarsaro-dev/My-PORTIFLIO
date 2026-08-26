@@ -594,6 +594,7 @@
       const jumpTo = (id) => {
         setOpen(false);
         setTimeout(() => {
+          if (id === 'exit') { window.location.href = 'contact.html'; return; }
           const el = document.getElementById(id);
           if (el) el.scrollIntoView({ behavior: 'smooth' });
         }, 300);
@@ -773,7 +774,7 @@
                     </button>
                   </Magnetic>
                   <Magnetic strength={0.3}>
-                    <a href="mailto:omarsaro2026@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20Omar%20Mohamed" className="cta-btn" data-hover>
+                    <a href="contact.html" className="cta-btn" data-hover>
                       {t.startProject} <Icon name="arrow" size={14} />
                     </a>
                   </Magnetic>
@@ -1304,7 +1305,7 @@
             <h2 className="display reveal">
               Let's build<br />
               <Magnetic strength={0.3}>
-                <a href="mailto:omarsaro2026@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20Omar%20Mohamed" className="exit-link" data-hover>something worth remembering <Icon name="arrow" size={28} /></a>
+                <a href="contact.html" className="exit-link" data-hover>something worth remembering <Icon name="arrow" size={28} /></a>
               </Magnetic>
             </h2>
             <div className="exit-subtext reveal">
@@ -1312,7 +1313,7 @@
             </div>
             <div className="exit-cta reveal">
               <Magnetic strength={0.3}>
-                <a href="mailto:omarsaro2026@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20Omar%20Mohamed" className="cta-btn primary" data-hover>
+                <a href="contact.html" className="cta-btn primary" data-hover>
                   <Icon name="mail" size={16} /> START A PROJECT
                 </a>
               </Magnetic>
@@ -1456,13 +1457,14 @@
       }, []);
       const t = LANG[lang];
       const jumpTo = (id) => {
+        if (id === 'contact') { window.location.href = 'contact.html'; return; }
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       };
       const items = [
         { label: t.work, id: "worlds", activeId: "worlds" },
         { label: t.services, id: "services", activeId: "services" },
-        { label: t.contact, id: "exit", activeId: "exit" },
+        { label: t.contact, id: "contact", activeId: "exit" },
       ];
       return (
         <nav className={`quick-access ${visible ? 'visible' : ''}`} aria-label="Quick navigation">
