@@ -258,7 +258,7 @@ section { position: relative; }
 .hero-imagewrap { position: absolute; inset: 0; transform-style: preserve-3d; }
 .hero-image-base, .hero-image-bright {
   position: absolute; inset: -4%;
-  background-image: url('assets/omar.png');
+  background-image: url('assets/image.png');
   background-size: cover; background-position: center 14%;
 }
 .hero-image-base { filter: brightness(0.22) contrast(1.2) saturate(0.4); }
