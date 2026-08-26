@@ -14,13 +14,13 @@
   <meta property="og:title" content="Omar Mohamed — Frontend Developer & AI Automation Enthusiast">
   <meta property="og:description" content="Immersive digital experiences where code meets design, motion meets interaction, and technology meets curiosity.">
   <meta property="og:site_name" content="Omar Mohamed Portfolio">
-  <meta property="og:image" content="https://omarmohamed.dev/og-image.svg">
+  <meta property="og:image" content="https://omarmohamed.dev/assets/image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Omar Mohamed — Frontend Developer & AI Automation Enthusiast">
   <meta name="twitter:description" content="Immersive digital experiences where code meets design, motion meets interaction, and technology meets curiosity.">
-  <meta name="twitter:image" content="https://omarmohamed.dev/og-image.svg">
+  <meta name="twitter:image" content="https://omarmohamed.dev/assets/image.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -29,7 +29,7 @@
     "jobTitle": "Frontend Developer & AI Automation Enthusiast",
     "description": "Building immersive digital experiences where code meets design, motion meets interaction, and technology meets curiosity.",
     "url": "https://omarmohamed.dev",
-    "image": "https://omarmohamed.dev/og-image.svg",
+    "image": "https://omarmohamed.dev/assets/image.png",
     "sameAs": ["https://github.com/omarsaro-dev", "https://www.linkedin.com/in/omar-saro-54381936a"]
   }
   </script>
@@ -45,7 +45,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-  <a href="#hero" className="skip-to-content">Skip to content</a>
+  <a href="#hero" class="skip-to-content">Skip to content</a>
   <canvas id="webgl-canvas" aria-hidden="true"></canvas>
   <div id="root"></div>
 
@@ -143,7 +143,7 @@
       },
       "03": {
         problem: "Needed a personal portfolio that goes beyond a standard template — something that demonstrates the full range of creative development skills.",
-        role: "Concept, design, and full-stack development. Every pixel, animation, and interaction was亲手 crafted.",
+        role: "Concept, design, and full-stack development. Every pixel, animation, and interaction was personally crafted.",
         approach: "Built a continuous cinematic experience using React, Three.js WebGL, GSAP scroll animations, and a chapter-based narrative structure.",
         solution: "A living digital universe — an immersive portfolio with real-time 3D, scroll-driven storytelling, interactive skill constellation, and production-grade architecture.",
         technology: ["React", "GSAP", "ScrollTrigger", "Three.js", "WebGL", "CSS Custom Properties"],
@@ -872,16 +872,36 @@
         const section = ref.current;
         if (!section) return;
         const statements = section.querySelectorAll('.mind-statement');
-        const totalHeight = (statements.length - 1) * window.innerHeight;
+        const isMobile = window.matchMedia('(max-width: 860px)').matches;
 
-        ScrollTrigger.create({
-          trigger: section, start: "top top", end: () => "+=" + totalHeight,
-          pin: true, scrub: 0.5,
-          onUpdate: (self) => {
-            const idx = Math.min(statements.length - 1, Math.floor(self.progress * statements.length));
-            if (idx !== activeIdx) setActiveIdx(idx);
-          }
-        });
+        if (isMobile) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                e.target.style.opacity = '1';
+                e.target.style.transform = 'translateY(0)';
+              }
+            });
+          }, { threshold: 0.3 });
+          statements.forEach(s => {
+            s.style.opacity = '0';
+            s.style.transform = 'translateY(30px)';
+            s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(s);
+          });
+          return () => observer.disconnect();
+        } else {
+          const totalHeight = (statements.length - 1) * window.innerHeight;
+          const st = ScrollTrigger.create({
+            trigger: section, start: "top top", end: () => "+=" + totalHeight,
+            pin: true, scrub: 0.5,
+            onUpdate: (self) => {
+              const idx = Math.min(statements.length - 1, Math.floor(self.progress * statements.length));
+              setActiveIdx(prev => prev !== idx ? idx : prev);
+            }
+          });
+          return () => st.kill();
+        }
       }, []);
 
       return (

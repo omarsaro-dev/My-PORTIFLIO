@@ -371,6 +371,31 @@ section { position: relative; }
 }
 .mind-progress-dot.active { background: var(--orange); width: 20px; border-radius: 3px; }
 
+@media (max-width: 860px) {
+  .mind {
+    min-height: auto;
+    height: auto;
+    overflow: visible;
+    padding: 100px 20px;
+  }
+  .mind-statement {
+    position: relative;
+    inset: auto;
+    min-height: 120px;
+    padding: 40px 0;
+    opacity: 1 !important;
+    pointer-events: auto;
+    transform: none !important;
+  }
+  .mind-statement-text {
+    font-size: clamp(32px, 10vw, 52px);
+    line-height: 1.05;
+  }
+  .mind-progress {
+    display: none;
+  }
+}
+
 /* ================================================================
    CHAPTER 04 / EVOLUTION
    ================================================================ */
@@ -446,13 +471,13 @@ section { position: relative; }
   width: 14px; height: 14px;
 }
 .skill-node-name {
-  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--grey); margin-top: 8px;
   white-space: nowrap; transition: color 0.3s ease;
 }
 .skill-node:hover .skill-node-name { color: var(--white); }
 .skill-node-status {
-  font-size: 8px; font-family: var(--font-mono); letter-spacing: 0.1em;
+  font-size: 10px; font-family: var(--font-mono); letter-spacing: 0.1em;
   text-transform: uppercase; margin-top: 4px; padding: 2px 6px;
   border-radius: 100px; opacity: 0; transform: translateY(-4px);
   transition: all 0.3s ease;
@@ -553,7 +578,7 @@ section { position: relative; }
 }
 .gallery-caption {
   padding: 10px 4px 4px;
-  font-family: var(--font-mono); font-size: 9px;
+  font-family: var(--font-mono); font-size: 10px;
   letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--grey-dim);
 }
@@ -568,7 +593,7 @@ section { position: relative; }
   border-radius: 12px; background: var(--black-elevated);
 }
 .system-diagram-title {
-  font-family: var(--font-mono); font-size: 9px; color: var(--orange);
+  font-family: var(--font-mono); font-size: 10px; color: var(--orange);
   letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 28px;
 }
 .diagram-flow { display: flex; flex-direction: column; gap: 6px; }
@@ -632,7 +657,7 @@ section { position: relative; }
   border-radius: 8px; background: var(--black); max-width: 340px; width: 100%;
 }
 .pipeline-label {
-  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.15em;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em;
   text-transform: uppercase; color: var(--grey-dim); margin-bottom: 6px;
 }
 .pipeline-name {
@@ -695,7 +720,7 @@ section { position: relative; }
 .lab-desc { font-size: 13px; color: var(--grey); line-height: 1.6; }
 .lab-badge {
   position: absolute; top: 16px; right: 16px;
-  font-size: 8px; font-family: var(--font-mono); letter-spacing: 0.1em;
+  font-size: 10px; font-family: var(--font-mono); letter-spacing: 0.1em;
   text-transform: uppercase; padding: 3px 8px; border-radius: 100px;
   color: var(--grey-dim); border: 1px solid var(--line);
 }
@@ -727,7 +752,7 @@ section { position: relative; }
 }
 .now-item-name { font-size: 15px; color: var(--white); font-weight: 500; }
 .now-status {
-  font-size: 9px; font-family: var(--font-mono); letter-spacing: 0.1em;
+  font-size: 10px; font-family: var(--font-mono); letter-spacing: 0.1em;
   text-transform: uppercase; padding: 4px 10px; border-radius: 100px;
 }
 .now-status.learning { color: var(--violet); border: 1px solid var(--violet-dim); }
@@ -761,7 +786,7 @@ section { position: relative; }
 .next-card-desc { font-size: 14px; color: var(--grey); line-height: 1.7; }
 .next-badge {
   position: absolute; top: 20px; right: 20px;
-  font-size: 9px; font-family: var(--font-mono); letter-spacing: 0.12em;
+  font-size: 10px; font-family: var(--font-mono); letter-spacing: 0.12em;
   text-transform: uppercase; padding: 4px 10px; border-radius: 100px;
   color: var(--violet); border: 1px solid var(--violet-dim);
 }
@@ -818,7 +843,7 @@ section { position: relative; }
 }
 .footer-left { display: flex; flex-direction: column; gap: 4px; }
 .footer-right { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
-.footer-built { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-deep); }
+.footer-built { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-deep); }
 
 /* ================================================================
    DEVELOPER MODE
@@ -909,7 +934,7 @@ section { position: relative; }
 .about-portrait-wrap:hover .about-portrait-img { transform: scale(1.03); }
 .about-portrait-label {
   position: absolute; bottom: 16px; left: 16px; z-index: 2;
-  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--grey-dim);
 }
 
@@ -930,8 +955,15 @@ section { position: relative; }
   .exit-portrait-wrap { width: 120px; height: 160px; right: 4%; bottom: 10%; opacity: 0.1; }
 }
 @media (max-width: 860px) {
-  .about-portrait-wrap { aspect-ratio: 16/10; max-height: 260px; }
-  .exit-portrait-wrap { display: none; }
+  .about-portrait-wrap { max-height: 260px; }
+  .exit-portrait-wrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 32px;
+    opacity: 0.25;
+    border-radius: 50%;
+  }
 }
 
 /* ================================================================
@@ -968,7 +1000,6 @@ section { position: relative; }
   .hero-availability { opacity: 1 !important; }
   .hero-cta-row { opacity: 1 !important; }
   .personality-keyword { opacity: 1 !important; }
-  .mind-statement { opacity: 1 !important; }
   .diagram-node { opacity: 1 !important; }
   .service-status { opacity: 1 !important; }
   .evolution-line { transform: scaleY(1) !important; }
@@ -1037,7 +1068,7 @@ a:focus-visible, button:focus-visible {
   transition: all 0.3s ease; cursor: none;
 }
 .quick-access-item:hover { color: var(--orange); background: var(--orange-dim); }
-@media (max-width: 860px) { .quick-access { bottom: 16px; gap: 2px; padding: 6px 8px; } .quick-access-item { font-size: 9px; padding: 6px 10px; } }
+@media (max-width: 860px) { .quick-access { bottom: 16px; gap: 2px; padding: 6px 8px; } .quick-access-item { font-size: 10px; padding: 6px 10px; } }
 
 /* ---------- EXPLORE WORK ---------- */
 .explore-work {
@@ -1088,7 +1119,7 @@ a:focus-visible, button:focus-visible {
 }
 .service-item:hover .service-desc { max-height: 120px; opacity: 1; margin-top: 12px; }
 .service-status {
-  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
   margin-top: 8px; opacity: 0;
   transition: opacity 0.4s ease 0.1s;
 }
@@ -1210,7 +1241,7 @@ a:focus-visible, button:focus-visible {
   margin-left: 8px;
 }
 .world-evidence-label {
-  grid-column: 1 / -1; font-size: 9px; color: var(--grey-dim);
+  grid-column: 1 / -1; font-size: 10px; color: var(--grey-dim);
   letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;
   padding: 8px 0; border-top: 1px solid var(--line);
 }
@@ -1276,7 +1307,7 @@ a:focus-visible, button:focus-visible {
 
 /* ---------- WORLD GALLERY LABELS ---------- */
 .world-gallery-label {
-  font-size: 9px; font-family: var(--font-mono); letter-spacing: 0.12em;
+  font-size: 10px; font-family: var(--font-mono); letter-spacing: 0.12em;
   text-transform: uppercase; color: var(--grey-dim); margin-bottom: 12px;
 }
 
