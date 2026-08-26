@@ -8,6 +8,7 @@
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="canonical" href="https://omarmohamed.dev">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preload" as="image" href="assets/omar.png" fetchpriority="high">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://omarmohamed.dev">
   <meta property="og:title" content="Omar Mohamed — Frontend Developer & AI Automation Enthusiast">
@@ -722,6 +723,14 @@
             <div className="hero-image-bright spotlight-mask" ref={spotlightRef}></div>
             <div className="hero-glowbeam"></div>
             <div className="hero-scanlines"></div>
+            <div className="hero-frame-svg" aria-hidden="true">
+              <svg viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="80" y="60" width="400" height="540" rx="2" stroke="white" strokeWidth="0.5" opacity="0.4"/>
+                <rect x="720" y="200" width="200" height="280" rx="2" stroke="white" strokeWidth="0.5" opacity="0.25"/>
+                <line x1="80" y1="620" x2="480" y2="620" stroke="white" strokeWidth="0.5" opacity="0.3"/>
+                <line x1="720" y1="500" x2="920" y2="500" stroke="white" strokeWidth="0.5" opacity="0.2"/>
+              </svg>
+            </div>
           </div>
           <div className="hero-vignette"></div>
           <div className="hero-content">
@@ -816,6 +825,16 @@
       return (
         <section className="about-section" id="about" ref={ref} aria-label="About">
           <div className="about-grid">
+            <div className="about-portrait-wrap reveal">
+              <img
+                className="about-portrait-img"
+                src="assets/omar.png"
+                alt="Omar Mohamed — portrait"
+                loading="lazy"
+                onError={(e) => { e.target.style.display='none'; }}
+              />
+              <span className="about-portrait-label">Omar Mohamed — Cairo, 2026</span>
+            </div>
             <div>
               <div className="about-eyebrow mono reveal">Who is Omar?</div>
               <h2 className="about-statement reveal">I don't just write code.<br />I design <em>digital experiences</em>.</h2>
@@ -1223,6 +1242,15 @@
       useReveal(".reveal", ref);
       return (
         <section className="exit" id="exit" ref={ref} aria-label="Contact">
+          <div className="exit-portrait-wrap" aria-hidden="true">
+            <img
+              className="exit-portrait-img"
+              src="assets/omar.png"
+              alt=""
+              loading="lazy"
+              onError={(e) => { e.target.style.display='none'; }}
+            />
+          </div>
           <div className="exit-inner">
             <div className="exit-eyebrow mono reveal">11 — Exit</div>
             <h2 className="display reveal">

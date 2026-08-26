@@ -258,11 +258,15 @@ section { position: relative; }
 .hero-imagewrap { position: absolute; inset: 0; transform-style: preserve-3d; }
 .hero-image-base, .hero-image-bright {
   position: absolute; inset: -4%;
-  background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAYBAzIDASIAAhEBAxEB/8QAHAAAAgMBAQEBAAAAAAAAAAAAAAEDBAUCBgcI/8QATBAAAQMCBQEGAggFAwMDAgILAQACAwQRBRIhMUFRBhMiYXGBMpEHFCNCUqGxwTNy0eHwJDRiFUPxU4KSCBZjJaIXRHOy0iY1VGTC/8QAGgEBAAMBAQEAAAAAAAAAAAAAAAECAwQFBv/EADMRAQEAAgICAgEDAgQFBAMAAAABAhEDIRIxBEFREyIyYXEFFCOxM0KBkaFSwdHhYnLw/9oADAMBAAIRAxEAPwD8acXQgaoUg4QhCAQhBQHKEWQpAmEuEIGgIQpAjZCCgEICEBymkmiQhJCBo4QhAIQhAWRwi6CgEIKEBZCEIBCEkDQhBQCEIRB3Qi6PdEjhCAmEAjzQhAwhIJoGEICOFAOEJoQJCdkkDHKaQT5QFroQjlAiUITCgMI5RwmpBwhCAoBwlsuri6SkCEIQHCYQdBohQEhCOUByhNHKkJJdFKygI7pFPlIi6kKyE0KEEUJpIEg7JpIBIpkI2QIpJn1SugEIRwgDskmkUAd0coKEAndKyEDSKEIGlyhBQCEI5QCXCZS80AmjhAQGnVCXzQg5RfVGyAgCmUk0C4QE0BSEhNAQCEJKQxuhACCgB1T5QhAHokmlZEhNIIKINCEIkIQhAJHdNCAQgIRI4QEihEGjdCEAdkt0cJoBA2QhAICfCPJAIHmmkgaOUIQCEk0AN00CydggAgI0TUBBNAQgE7ICYQI+SaEcICyVl0hBzZC6SQAXQtuuQE26coBCYRaxUA3QN0G6ApAdUyhBF91ASCmfNHqgW5T1R0COUAknykd0AkmUeyBFIpndFtECSKZ3QUC9UuU+UraoBJdFLlAkIOiEQSEzskgRQmlygEIQECshNL0QCEWQgEIRdAIQEeaAB0QhHRAG6EIPkgEk9UWQLVC61QgjQgoCATQhSDhF0HZLzQPdCEC6kHKOU+EhdA0FCEANkIQiQhCaBIQUtUDCEbI9ESAhCCgEIQgOUIQgEIQgQumhCAQhCIHKYSC6FkCRwmhAJbJpFAwEIATKJIJ+SEIgBNAT4QLyTAQEwEAurJAJ6JoKyZCaFASLaJlAQCEJoFz5IKZQgWiE7JIAFNARbXRQEmgJqQrdUAeaaXkoD9Uk+qNAgWqEIN0AEIQQgSOU7pIEgoQQgSaNb7oUhJFdBIqAvVBRZAQI7pFM8JFSEndFkAIEd0J8JKEEhOyPVAihNCBIRrZCBICEIAIsmkgEIQgCgoQgEJJoCyEWCEHHkhHmmgAjlCCpBfRCE1IXkhBQEDQhCAQEIRIKEIQCEIJQCEI5RI2QhCAtohCFIEICZUBITKSATSCakFkimjhAIRyhQAWsmjhCICEIQCEeSaACEBF9ESE0BA3QOydkBPlAuF0kmiAiyOE/dEjhCaXkoQBynwgI4QCEe6EAhMI0QIBA3TCfKASTQgVimgG6ZUDlIpnqgDXZAC6PRAXSDk9EJpcoBIplJEkUl0UjdED1T8ktk0CQUcoUha3S900W0UBI0Rwi6BIKfRFlI5SXXGqEHKEGyPJAWSTSUICEI5QCVkJoOU0FJAIQmgWqCmkUBwgoQgOEBB3QgSE9EKRwnZCEBZCEHRAICAg9FIaOEIQCAhFkSAhCEAmkmgSEIRIQhCATskmgSE0kAhCeikFkIRwgEBCFAOEIRZAJpIKBpaFCAEDQhCAT4QjhEBMJJhEhCOU0Dam/4c90cJoB/9k=');
+  background-image: url('assets/omar.png');
   background-size: cover; background-position: center 14%;
 }
-.hero-image-base { filter: brightness(0.28) contrast(1.15) saturate(0.5); }
-.hero-image-bright { filter: brightness(0.75) contrast(1.2) saturate(0.8); }
+.hero-image-base { filter: brightness(0.22) contrast(1.2) saturate(0.4); }
+.hero-image-bright {
+  filter: brightness(0.65) contrast(1.25) saturate(0.7);
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.85) 55%, black 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.85) 55%, black 100%);
+}
 .hero-scanlines {
   position: absolute; inset: 0; z-index: 3;
   background: repeating-linear-gradient(180deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
@@ -830,8 +834,12 @@ section { position: relative; }
 }
 .about-grid {
   width: 100%; max-width: 1320px; margin: 0 auto;
-  display: grid; grid-template-columns: 0.9fr 1.1fr;
-  gap: clamp(32px, 6vw, 90px);
+  display: grid; grid-template-columns: 0.35fr 0.9fr 1.1fr;
+  gap: clamp(24px, 4vw, 60px); align-items: start;
+}
+@media (max-width: 1100px) {
+  .about-grid { grid-template-columns: 0.3fr 1fr; }
+  .about-portrait-wrap { grid-row: 1 / 3; }
 }
 @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
 .about-eyebrow { font-size: 11px; color: var(--violet); margin-bottom: 24px; }
@@ -854,6 +862,59 @@ section { position: relative; }
 }
 .metric-num span { color: var(--orange); }
 .metric-label { font-size: 10px; color: var(--grey); margin-top: 8px; max-width: 160px; line-height: 1.5; }
+
+/* ================================================================
+   PORTRAIT SYSTEM
+   ================================================================ */
+.hero-frame-svg {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  opacity: 0.12; mix-blend-mode: overlay;
+}
+.hero-frame-svg svg { width: 100%; height: 100%; }
+
+.about-portrait-wrap {
+  position: relative; overflow: hidden; border-radius: 4px;
+  aspect-ratio: 3/4; max-height: 520px;
+  mask-image: linear-gradient(180deg, black 0%, black 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, black 0%, black 75%, transparent 100%);
+}
+.about-portrait-wrap::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(5,5,5,0.6) 100%);
+  pointer-events: none;
+}
+.about-portrait-img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.85) contrast(1.1) saturate(0.75);
+  transition: transform 0.6s cubic-bezier(.16,.84,.44,1);
+}
+.about-portrait-wrap:hover .about-portrait-img { transform: scale(1.03); }
+.about-portrait-label {
+  position: absolute; bottom: 16px; left: 16px; z-index: 2;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--grey-dim);
+}
+
+.exit-portrait-wrap {
+  position: absolute; bottom: 15%; right: 8%; z-index: 0;
+  width: 200px; height: 260px; overflow: hidden; border-radius: 4px;
+  opacity: 0.15; pointer-events: none;
+  mask-image: linear-gradient(180deg, black 0%, transparent 90%);
+  -webkit-mask-image: linear-gradient(180deg, black 0%, transparent 90%);
+}
+.exit-portrait-img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.5) contrast(1.3) saturate(0) grayscale(1);
+}
+
+@media (max-width: 900px) {
+  .about-portrait-wrap { max-height: 360px; aspect-ratio: 4/3; }
+  .exit-portrait-wrap { width: 120px; height: 160px; right: 4%; bottom: 10%; opacity: 0.1; }
+}
+@media (max-width: 860px) {
+  .about-portrait-wrap { aspect-ratio: 16/10; max-height: 260px; }
+  .exit-portrait-wrap { display: none; }
+}
 
 /* ================================================================
    REDUCED MOTION
@@ -1226,6 +1287,8 @@ a:focus-visible, button:focus-visible {
 [dir="rtl"] .case-study-footer { direction: rtl; }
 [dir="rtl"] .cs-tag { direction: rtl; }
 [dir="rtl"] .about-statement { direction: rtl; text-align: right; }
+[dir="rtl"] .about-portrait-label { left: auto; right: 16px; }
+[dir="rtl"] .exit-portrait-wrap { right: auto; left: 8%; }
 [dir="rtl"] .manifesto-content { direction: rtl; }
 [dir="rtl"] .service-item { direction: rtl; }
 [dir="rtl"] .proof-card { direction: rtl; }
