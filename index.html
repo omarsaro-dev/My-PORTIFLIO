@@ -291,7 +291,7 @@
       if (!canvas || typeof THREE === 'undefined') return;
       const isMobile = window.innerWidth < 860;
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReducedMotion) { canvas.style.display = 'none'; return; }
+      if (prefersReducedMotion || isMobile) { canvas.style.display = 'none'; return; }
 
       let renderer, scene, camera, particles, ico, ring, lines, raf;
       let mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0;
@@ -475,7 +475,15 @@
           setProgress(Math.min(100, (current / 8.2) * 100));
         }, 50);
 
-        return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearInterval(interval); };
+        const hardTimeout = setTimeout(() => {
+          clearInterval(interval);
+          setCounter('8.2');
+          setProgress(100);
+          setDone(true);
+          setTimeout(() => onComplete(), 300);
+        }, 4000);
+
+        return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearInterval(interval); clearTimeout(hardTimeout); };
       }, []);
 
       return (
@@ -634,6 +642,7 @@
        ================================================================ */
     function useReveal(selector, container) {
       useEffect(() => {
+        if (window.innerWidth < 860) return;
         const root = container && container.current ? container.current : document;
         root.querySelectorAll(selector).forEach((el, i) => {
           gsap.to(el, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", delay: (i % 4) * 0.08,
@@ -648,8 +657,9 @@
        ================================================================ */
     function Stat({ target, suffix = "", label }) {
       const numRef = useRef(null);
-      const [revealed, setRevealed] = useState(false);
+      const [revealed, setRevealed] = useState(() => window.innerWidth < 860);
       useEffect(() => {
+        if (window.innerWidth < 860) return;
         const obj = { val: 0 };
         gsap.to(obj, { val: target, duration: 1.6, ease: "power2.out",
           scrollTrigger: { trigger: numRef.current, start: "top 88%", toggleActions: "play none none reverse" },
@@ -677,17 +687,20 @@
       const t = LANG[lang];
 
       useEffect(() => {
-        const tl = gsap.timeline({ defaults: { ease: "power4.out" }, delay: 1.35 });
-        tl.to(".hero-eyebrow", { opacity: 1, y: 0, duration: 0.8 }, 0)
-          .to(".hero-name .char", { opacity: 1, filter: "blur(0px)", y: 0, duration: 1.1, stagger: 0.028 }, 0.15)
-          .to(".hero-role", { opacity: 1, duration: 0.9 }, 1.0)
-          .to(".hero-availability", { opacity: 1, y: 0, duration: 0.7 }, 1.1)
-          .to(".hero-cta-row", { opacity: 1, y: 0, duration: 0.7 }, 1.2)
-          .to(".scroll-cue", { opacity: 1, duration: 0.9 }, 1.3);
+        const isMobile = window.innerWidth < 860;
+        if (!isMobile) {
+          const tl = gsap.timeline({ defaults: { ease: "power4.out" }, delay: 1.35 });
+          tl.to(".hero-eyebrow", { opacity: 1, y: 0, duration: 0.8 }, 0)
+            .to(".hero-name .char", { opacity: 1, filter: "blur(0px)", y: 0, duration: 1.1, stagger: 0.028 }, 0.15)
+            .to(".hero-role", { opacity: 1, duration: 0.9 }, 1.0)
+            .to(".hero-availability", { opacity: 1, y: 0, duration: 0.7 }, 1.1)
+            .to(".hero-cta-row", { opacity: 1, y: 0, duration: 0.7 }, 1.2)
+            .to(".scroll-cue", { opacity: 1, duration: 0.9 }, 1.3);
+        }
         gsap.to(imgwrapRef.current, { scale: 1.18, yPercent: 8, ease: "none",
           scrollTrigger: { trigger: heroRef.current, start: "top top", end: "bottom top", scrub: true }
         });
-        if (!window.matchMedia('(min-width: 860px)').matches) return;
+        if (isMobile) return;
         const rotX = gsap.quickTo(imgwrapRef.current, "rotationX", { duration: 0.6, ease: "power3" });
         const rotY = gsap.quickTo(imgwrapRef.current, "rotationY", { duration: 0.6, ease: "power3" });
         const onMove = (e) => {
@@ -754,6 +767,7 @@
       const ref = useRef(null);
       const kwRefs = useRef([]);
       useEffect(() => {
+        if (window.innerWidth < 860) return;
         const lines = ref.current.querySelectorAll('.manifesto-line');
         gsap.set(lines, { y: 30 });
         gsap.timeline({ scrollTrigger: { trigger: ref.current, start: "top 70%", toggleActions: "play none none reverse" } })
@@ -870,6 +884,7 @@
       const ref = useRef(null);
       const lineRef = useRef(null);
       useEffect(() => {
+        if (window.innerWidth < 860) return;
         const nodes = ref.current.querySelectorAll('.evo-node');
         nodes.forEach((el, i) => {
           gsap.to(el, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: i * 0.06,
@@ -983,6 +998,7 @@
       const diagRef = useRef(null);
 
       useEffect(() => {
+        if (window.innerWidth < 860) return;
         if (frameRef.current) {
           gsap.from(frameRef.current, { scale: 0.92, opacity: 0, ease: "power3.out",
             scrollTrigger: { trigger: frameRef.current, start: "top 90%", end: "top 20%", scrub: true }
@@ -1090,6 +1106,7 @@
       const ref = useRef(null);
       useReveal(".reveal", ref);
       useEffect(() => {
+        if (window.innerWidth < 860) return;
         const nodes = ref.current.querySelectorAll('.pipeline-node');
         nodes.forEach((el, i) => {
           gsap.from(el.querySelector('.pipeline-box'), { opacity: 0, x: i%2===0?-30:30, duration: 0.8, ease: "power3.out",
@@ -1414,6 +1431,7 @@
       const ref = useRef(null);
       const [hovered, setHovered] = useState(null);
       useEffect(() => {
+        if (window.innerWidth < 860) return;
         const items = ref.current.querySelectorAll('.service-item');
         items.forEach((el, i) => {
           gsap.from(el, { opacity: 0, y: 40, duration: 0.8, ease: "power3.out", delay: i * 0.08,
