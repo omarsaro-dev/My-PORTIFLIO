@@ -1,28 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
   <defs>
     <radialGradient id="glow" cx="50%" cy="60%" r="50%">
-      <stop offset="0%" stop-color="#FF4D00" stop-opacity="0.12"/>
+      <stop offset="0%" stop-color="#6C7CFF" stop-opacity="0.12"/>
       <stop offset="100%" stop-color="#050505" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="glow2" cx="30%" cy="30%" r="40%">
-      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.08"/>
+      <stop offset="0%" stop-color="#9A7BFF" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#050505" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="1200" height="630" fill="#050505"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
   <rect width="1200" height="630" fill="url(#glow2)"/>
-  <line x1="80" y1="540" x2="400" y2="540" stroke="#FF4D00" stroke-width="1" opacity="0.4"/>
-  <text x="80" y="510" font-family="Arial, Helvetica, sans-serif" font-weight="500" font-size="14" fill="#FF4D00" letter-spacing="4" text-transform="uppercase" opacity="0.9">FRONTEND DEVELOPER</text>
-  <text x="80" y="570" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="12" fill="#8A8A8A" letter-spacing="3">AI AUTOMATION ENTHUSIAST</text>
-  <text x="600" y="280" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="96" fill="#F5F5F5" letter-spacing="6">OMAR</text>
-  <text x="600" y="380" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="300" font-size="96" fill="none" stroke="#F5F5F5" stroke-width="1.5" letter-spacing="6">MOHAMED</text>
-  <circle cx="1100" cy="120" r="2" fill="#FF4D00" opacity="0.6"/>
-  <circle cx="1050" cy="200" r="1.5" fill="#8B5CF6" opacity="0.4"/>
-  <circle cx="1120" cy="350" r="1" fill="#FF4D00" opacity="0.3"/>
-  <circle cx="980" cy="450" r="2.5" fill="#8B5CF6" opacity="0.3"/>
-  <line x1="1100" y1="120" x2="1050" y2="200" stroke="#FF4D00" stroke-width="0.5" opacity="0.15"/>
-  <line x1="1050" y1="200" x2="1120" y2="350" stroke="#FF4D00" stroke-width="0.5" opacity="0.1"/>
-  <rect x="80" y="80" width="48" height="48" rx="10" fill="none" stroke="#FF4D00" stroke-width="1" opacity="0.5"/>
-  <text x="104" y="111" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="18" fill="#FF4D00">OM</text>
+  <line x1="80" y1="540" x2="400" y2="540" stroke="#6C7CFF" stroke-width="1" opacity="0.4"/>
+  <text x="80" y="510" font-family="Arial, Helvetica, sans-serif" font-weight="500" font-size="14" fill="#6C7CFF" letter-spacing="4" text-transform="uppercase" opacity="0.9">FRONTEND DEVELOPER</text>
+  <text x="80" y="570" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="12" fill="#A5A5A8" letter-spacing="3">AI AUTOMATION ENTHUSIAST</text>
+  <text x="600" y="280" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="96" fill="#F2F0EA" letter-spacing="6">OMAR</text>
+  <text x="600" y="380" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="300" font-size="96" fill="none" stroke="#F2F0EA" stroke-width="1.5" letter-spacing="6">MOHAMED</text>
+  <circle cx="1100" cy="120" r="2" fill="#6C7CFF" opacity="0.6"/>
+  <circle cx="1050" cy="200" r="1.5" fill="#9A7BFF" opacity="0.4"/>
+  <circle cx="1120" cy="350" r="1" fill="#6C7CFF" opacity="0.3"/>
+  <circle cx="980" cy="450" r="2.5" fill="#9A7BFF" opacity="0.3"/>
+  <line x1="1100" y1="120" x2="1050" y2="200" stroke="#6C7CFF" stroke-width="0.5" opacity="0.15"/>
+  <line x1="1050" y1="200" x2="1120" y2="350" stroke="#6C7CFF" stroke-width="0.5" opacity="0.1"/>
+  <rect x="80" y="80" width="48" height="48" rx="10" fill="none" stroke="#6C7CFF" stroke-width="1" opacity="0.5"/>
+  <text x="104" y="111" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="18" fill="#6C7CFF">OM</text>
 </svg>
