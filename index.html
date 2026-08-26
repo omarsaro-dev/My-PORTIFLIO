@@ -159,7 +159,7 @@
 
     const WORLDS = [
       {
-        idx: "01", cls: "w1", tag: "Automation · n8n · Google Sheets", tagCls: "primary",
+        idx: "01", cls: "w1", tag: "Automation · n8n · Google Sheets", tagCls: "orange",
         title: ["AI Paint", "Assistant"],
         body: "An AI-powered automation assistant for querying paint product prices. n8n orchestrates the logic, Google Sheets holds the source of truth, and the interface delivers answers instantly.",
         tools: ["n8n", "Google Sheets API", "Webhooks", "Arabic RTL UI", "Automation Logic"],
@@ -200,7 +200,7 @@
         evidence: { type: "gallery", label: "Project Gallery — Real Screenshots" },
       },
       {
-        idx: "03", cls: "w3", tag: "Brand · Portfolio · Creative Dev", tagCls: "primary",
+        idx: "03", cls: "w3", tag: "Brand · Portfolio · Creative Dev", tagCls: "orange",
         title: ["Digital", "Universe"],
         body: "The experience you are inside right now. One continuous cinematic sequence built to hold both sides of the practice — the craft of the interface and the systems running underneath it.",
         tools: ["React", "GSAP", "ScrollTrigger", "Three.js", "WebGL", "Motion"],
@@ -216,11 +216,11 @@
     ];
 
     const PIPELINE = [
-      { label: "TRIGGER", name: "User Input", desc: "A question is asked. A request arrives.", color: "var(--secondary)" },
-      { label: "PROCESS", name: "AI Processing", desc: "Natural language parsed. Intent understood.", color: "var(--secondary)" },
-      { label: "ORCHESTRATE", name: "n8n Workflow", desc: "Logic branches. Data routed.", color: "var(--primary)" },
-      { label: "DATABASE", name: "Google Sheets", desc: "Product data. Rows become answers.", color: "var(--primary)" },
-      { label: "RESPOND", name: "Structured Output", desc: "Answer formatted and returned.", color: "var(--secondary)" },
+      { label: "TRIGGER", name: "User Input", desc: "A question is asked. A request arrives.", color: "var(--violet)" },
+      { label: "PROCESS", name: "AI Processing", desc: "Natural language parsed. Intent understood.", color: "var(--violet)" },
+      { label: "ORCHESTRATE", name: "n8n Workflow", desc: "Logic branches. Data routed.", color: "var(--orange)" },
+      { label: "DATABASE", name: "Google Sheets", desc: "Product data. Rows become answers.", color: "var(--orange)" },
+      { label: "RESPOND", name: "Structured Output", desc: "Answer formatted and returned.", color: "var(--violet)" },
     ];
 
     const LAB_ITEMS = [
@@ -347,19 +347,19 @@
           vel[i3] = (Math.random()-0.5)*0.2; vel[i3+1] = (Math.random()-0.5)*0.2; vel[i3+2] = (Math.random()-0.5)*0.2;
         }
         geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-        const mat = new THREE.PointsMaterial({ color: 0xF3EEE4, size: isMobile ? 1.6 : 1.0, transparent: true, opacity: 0.25, sizeAttenuation: true });
+        const mat = new THREE.PointsMaterial({ color: 0xff4d00, size: isMobile ? 1.6 : 1.0, transparent: true, opacity: 0.25, sizeAttenuation: true });
         particles = new THREE.Points(geo, mat);
         scene.add(particles);
 
         /* Central icosahedron */
         const icoGeo = new THREE.IcosahedronGeometry(isMobile ? 35 : 55, 1);
-        const icoMat = new THREE.MeshBasicMaterial({ color: 0xC6A46A, wireframe: true, transparent: true, opacity: 0.08 });
+        const icoMat = new THREE.MeshBasicMaterial({ color: 0xff4d00, wireframe: true, transparent: true, opacity: 0.12 });
         ico = new THREE.Mesh(icoGeo, icoMat);
         scene.add(ico);
 
         /* Ring */
         const ringGeo = new THREE.TorusGeometry(isMobile ? 50 : 75, 0.4, 8, 80);
-        const ringMat = new THREE.MeshBasicMaterial({ color: 0xC6A46A, transparent: true, opacity: 0.04 });
+        const ringMat = new THREE.MeshBasicMaterial({ color: 0x8b5cf6, transparent: true, opacity: 0.06 });
         ring = new THREE.Mesh(ringGeo, ringMat);
         ring.rotation.x = Math.PI * 0.35;
         scene.add(ring);
@@ -369,7 +369,7 @@
         const lineGeo = new THREE.BufferGeometry();
         const linePos = new Float32Array(lineCount * 6);
         lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
-        const lineMat = new THREE.LineBasicMaterial({ color: 0xF3EEE4, transparent: true, opacity: 0.04 });
+        const lineMat = new THREE.LineBasicMaterial({ color: 0xff4d00, transparent: true, opacity: 0.04 });
         lines = new THREE.LineSegments(lineGeo, lineMat);
         scene.add(lines);
 
@@ -956,7 +956,7 @@
       return (
         <section className="evolution" id="evolution" aria-label="Evolution">
           <div className="evolution-head">
-            <div className="about-eyebrow mono reveal" style={{ color: "var(--primary)" }}>04 — Evolution</div>
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--orange)" }}>04 — Evolution</div>
             <h2 className="display reveal">The Evolution</h2>
           </div>
           <div className="evolution-stream" ref={ref}>
@@ -1006,7 +1006,7 @@
       return (
         <section className="system" id="system" aria-label="Skills System">
           <div className="system-head">
-            <div className="about-eyebrow mono reveal" style={{ color: "var(--primary)" }}>05 — System</div>
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--orange)" }}>05 — System</div>
             <h2 className="display reveal">The System</h2>
           </div>
 
@@ -1185,7 +1185,7 @@
       return (
         <section className="machine" id="machine" ref={ref} aria-label="AI Machine">
           <div className="machine-head">
-            <div className="about-eyebrow mono reveal" style={{ color: "var(--secondary)" }}>07 — Machine</div>
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--violet)" }}>07 — Machine</div>
             <h2 className="display reveal">AI × Automation</h2>
           </div>
           <div className="pipeline">
@@ -1214,7 +1214,7 @@
       return (
         <section className="lab" id="lab" ref={ref} aria-label="Lab">
           <div className="lab-head">
-            <div className="about-eyebrow mono reveal" style={{ color: "var(--secondary)" }}>08 — Lab</div>
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--violet)" }}>08 — Lab</div>
             <h2 className="display reveal">Experiments<br />& Playgrounds</h2>
           </div>
           <div className="lab-grid">
@@ -1246,13 +1246,13 @@
       return (
         <section className="now" id="now" ref={ref} aria-label="Now">
           <div className="now-head">
-            <div className="about-eyebrow mono reveal" style={{ color: "var(--primary)" }}>09 — Now</div>
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--orange)" }}>09 — Now</div>
             <h2 className="display reveal">Right Now</h2>
           </div>
           <div className="now-grid">
             <div className="now-column reveal"><div className="now-label">Currently Learning</div>{renderItems(NOW_LEARN)}</div>
             <div className="now-column reveal"><div className="now-label" style={{ color: '#22c55e' }}>Currently Building</div>{renderItems(NOW_BUILD)}</div>
-            <div className="now-column reveal"><div className="now-label" style={{ color: 'var(--secondary)' }}>Currently Exploring</div>{renderItems(NOW_EXPLORE)}</div>
+            <div className="now-column reveal"><div className="now-label" style={{ color: 'var(--violet)' }}>Currently Exploring</div>{renderItems(NOW_EXPLORE)}</div>
           </div>
         </section>
       );
@@ -1267,7 +1267,7 @@
       return (
         <section className="next" id="next" ref={ref} aria-label="Next">
           <div className="next-head">
-            <div className="about-eyebrow mono reveal" style={{ color: "var(--secondary)" }}>10 — Next</div>
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--violet)" }}>10 — Next</div>
             <h2 className="display reveal">What's<br />Next?</h2>
           </div>
           <div className="next-grid">
@@ -1394,7 +1394,7 @@
       return (
         <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Omar Mohamed logo">
           <rect width="64" height="64" rx="12" fill="#050505"/>
-          <text x="32" y="44" textAnchor="middle" fontFamily="Arial, Helvetica, sans-serif" fontWeight="700" fontSize="30" fill="#C6A46A" letterSpacing="2">OM</text>
+          <text x="32" y="44" textAnchor="middle" fontFamily="Arial, Helvetica, sans-serif" fontWeight="700" fontSize="30" fill="#FF4D00" letterSpacing="2">OM</text>
         </svg>
       );
     }
@@ -1521,7 +1521,7 @@
       return (
         <section className="services" id="services" ref={ref} aria-label="Services">
           <div className="services-head">
-            <div className="about-eyebrow mono reveal" style={{ color: "var(--primary)" }}>Capabilities</div>
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--orange)" }}>Capabilities</div>
             <h2 className="display reveal">Services</h2>
           </div>
           <div className="services-list">
@@ -1551,7 +1551,7 @@
       return (
         <section className="proof" id="proof" ref={ref} aria-label="Proof of Work">
           <div className="proof-head">
-            <div className="about-eyebrow mono reveal" style={{ color: "var(--primary)" }}>Credibility</div>
+            <div className="about-eyebrow mono reveal" style={{ color: "var(--orange)" }}>Credibility</div>
             <h2 className="display reveal">Proof</h2>
           </div>
           <div className="proof-content">
