@@ -12,12 +12,23 @@ export const site = {
 
   // CONFLICT: legacy <a href="tel:+201068081198"> (index.html & contact.html)
   // is displayed as "+20 106 808 1198". The WhatsApp number below is a
-  // DIFFERENT number (+201273494048). UNRESOLVED — awaiting user's final values.
+  // DIFFERENT number (+201273494048). Both kept exactly as found in the
+  // legacy source. UNRESOLVED — awaiting user's final values. Do not merge,
+  // do not expose an unconfirmed number as contactable in new UI without
+  // explicit approval.
   phoneTel: "+201068081198",
   phoneDisplay: "+20 106 808 1198",
-
   whatsappUrl: "https://wa.me/201273494048",
   whatsappDisplay: "+20 127 349 4048",
+
+  // /contact route is deferred from the legacy contact.html page. CTAs
+  // that navigated to contact.html (START A PROJECT, exit heading, exit
+  // primary) are rendered disabled/pending until an approved destination.
+  contact: {
+    label: "Contact",
+    route: "/contact",
+    status: "pending",
+  },
 
   githubUrl: "https://github.com/omarsaro-dev",
   githubHandle: "omarsaro-dev",

@@ -1,0 +1,111 @@
+import type { CaseStudy, CaseStudyId, World } from "./content-types";
+
+export const worlds: World[] = [
+  {
+    idx: "01",
+    cls: "w1",
+    tag: "Automation · n8n · Google Sheets",
+    tagCls: "orange",
+    title: ["AI Paint", "Assistant"],
+    body: "An AI-powered automation assistant for querying paint product prices. n8n orchestrates the logic, Google Sheets holds the source of truth, and the interface delivers answers instantly.",
+    tools: ["n8n", "Google Sheets API", "Webhooks", "Arabic RTL UI", "Automation Logic"],
+    images: [
+      { src: "/assets/1.png", type: "screenshot", caption: "System Workflow", featured: true, width: 1905, height: 870 },
+    ],
+    role: "Automation · Full System",
+    status: "PRIVATE",
+    statusNote: "Demo available on request",
+    links: { demo: null, github: null, casestudy: "01" },
+    evidence: { type: "screenshot", label: "System Workflow — Conceptual Architecture" },
+    diagram: [
+      { label: "USER", desc: "Client sends a product query", highlight: true },
+      { label: "CHAT", desc: "AI processes natural language", highlight: false },
+      { label: "WEBHOOK", desc: "Data forwarded to n8n", highlight: false },
+      { label: "N8N", desc: "Logic engine processes request", highlight: true },
+      { label: "GOOGLE SHEETS", desc: "Product database lookup", highlight: false },
+      { label: "RESPONSE", desc: "Price data returned to user", highlight: true },
+    ],
+  },
+  {
+    idx: "02",
+    cls: "w2",
+    tag: "Web Design · Architecture & Interiors",
+    tagCls: "violet",
+    title: ["Mousaa", "Designs"],
+    body: "A high-end showcase built for an interior design studio. Cinematic visuals, immersive storytelling, and a visual language that matches the precision of the work being presented.",
+    tools: ["HTML", "CSS", "JavaScript", "GSAP", "Luxury UI"],
+    images: [
+      { src: "/assets/mousa1.png", type: "screenshot", caption: "Homepage", featured: true, width: 1914, height: 919 },
+      { src: "/assets/mousaa3.png", type: "screenshot", caption: "Project Gallery", width: 1909, height: 910 },
+      { src: "/assets/mousaa4.png", type: "screenshot", caption: "Interior Project Page", width: 1863, height: 892 },
+      { src: "/assets/mousaa5.png", type: "screenshot", caption: "Wide Visual Composition", width: 1911, height: 818 },
+      { src: "/assets/mousaa8.png", type: "screenshot", caption: "Mobile Layout", width: 1900, height: 907 },
+      { src: "/assets/mousaa9.png", type: "screenshot", caption: "Detail View", width: 1919, height: 870 },
+    ],
+    role: "Frontend · Design · Development",
+    status: "CONCEPT",
+    statusNote: "Demo available on request",
+    links: { demo: null, github: null, casestudy: "02" },
+    evidence: { type: "gallery", label: "Project Gallery — Real Screenshots" },
+  },
+  {
+    idx: "03",
+    cls: "w3",
+    tag: "Brand · Portfolio · Creative Dev",
+    tagCls: "orange",
+    title: ["Digital", "Universe"],
+    body: "The experience you are inside right now. One continuous cinematic sequence built to hold both sides of the practice — the craft of the interface and the systems running underneath it.",
+    tools: ["React", "GSAP", "ScrollTrigger", "Three.js", "WebGL", "Motion"],
+    images: [
+      { src: "/assets/image.png", type: "screenshot", caption: "Immersive Portfolio Experience", featured: true, width: 1200, height: 1600 },
+    ],
+    role: "Concept · Design · Development",
+    status: "LIVE",
+    statusNote: null,
+    links: { demo: "https://omarmohamed.dev", github: "https://github.com/omarsaro-dev", casestudy: "03" },
+    evidence: { type: "live", label: "You are inside this project right now" },
+  },
+];
+
+export const caseStudies = {
+  "01": {
+    problem: "A paint business needed a way to query product prices quickly. Manual lookups were slow and error-prone.",
+    role: "Designed and built the entire automation system — from AI interface to backend workflow to data layer.",
+    approach: "Used natural language processing to interpret product queries, routed through n8n workflows to a Google Sheets database, and returned structured price data.",
+    solution: "An AI-powered chat interface where clients ask product questions and receive instant, accurate price answers — in Arabic.",
+    technology: ["n8n", "Google Sheets API", "Webhooks", "AI/NLP", "Arabic RTL"],
+    challenges: "Handling Arabic RTL text processing and ensuring accurate product matching across a large inventory.",
+    decisions: "Chose n8n for visual workflow management and Google Sheets for easy client-side data updates without developer intervention.",
+    result: "A working automation system that handles product queries instantly — eliminating manual lookup time.",
+    lessons: "Automation is most valuable when it removes friction from everyday tasks. The interface must feel natural, even when the backend is complex.",
+    next: "Expand to support image-based product queries and multi-language support.",
+  },
+  "02": {
+    problem: "An interior design studio needed a digital presence that matched the quality and precision of their physical work.",
+    role: "Full frontend development — from visual concept to production deployment. Built the entire interactive experience.",
+    approach: "Created a cinematic visual language using large typography, immersive imagery, scroll-driven animations, and a luxury color palette.",
+    solution: "A high-end portfolio website with gallery interactions, smooth transitions, and a visual system that elevates the presented work.",
+    technology: ["HTML", "CSS", "JavaScript", "GSAP", "ScrollTrigger"],
+    challenges: "Balancing visual richness with performance. Ensuring the experience feels premium without being slow.",
+    decisions: "Used GSAP for all animations to maintain control over timing and easing. Kept the color palette minimal to let the project imagery speak.",
+    result: "A showcase website that matches the caliber of the design work it presents.",
+    lessons: "Luxury design is about restraint and precision. Every animation and transition must feel intentional.",
+    next: "Add a project filter system and CMS integration for easy content updates.",
+  },
+  "03": {
+    problem: "Needed a personal portfolio that goes beyond a standard template — something that demonstrates the full range of creative development skills.",
+    role: "Concept, design, and full-stack development. Every pixel, animation, and interaction was personally crafted.",
+    approach: "Built a continuous cinematic experience using React, Three.js WebGL, GSAP scroll animations, and a chapter-based narrative structure.",
+    solution: "A living digital universe — an immersive portfolio with real-time 3D, scroll-driven storytelling, interactive skill constellation, and production-grade architecture.",
+    technology: ["React", "GSAP", "ScrollTrigger", "Three.js", "WebGL", "CSS Custom Properties"],
+    challenges: "Maintaining performance across devices while delivering a rich 3D experience. Coordinating complex scroll-driven animations.",
+    decisions: "Chose a single-page architecture for seamless transitions. Used WebGL for ambient atmosphere rather than distraction. Built everything without a build system for maximum portability.",
+    result: "A portfolio that doubles as a creative development showcase — every section demonstrates a different skill.",
+    lessons: "The best portfolio is the work itself. Technical skill and creative vision must coexist.",
+    next: "Add case study deep-dives, GSAP scroll-linked shader effects, and a 3D project gallery.",
+  },
+} satisfies Record<CaseStudyId, CaseStudy>;
+
+export function nextCaseStudyId(id: CaseStudyId): CaseStudyId {
+  return id === "03" ? "01" : (String(Number(id) + 1).padStart(2, "0") as CaseStudyId);
+}

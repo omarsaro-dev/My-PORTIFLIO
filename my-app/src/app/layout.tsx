@@ -7,6 +7,7 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { AppMotion } from "@/components/motion/app-motion";
 
 const fontDisplay = Bebas_Neue({
   weight: "400",
@@ -118,6 +119,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
         {children}
+        <AppMotion />
       </body>
     </html>
   );
